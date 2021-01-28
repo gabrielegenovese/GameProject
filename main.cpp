@@ -1,11 +1,11 @@
-#include "./classes/controller.h"
-#include "./classes/player.h"
+#include "./classes/controller.hpp"
+#include "./classes/player.hpp"
 using namespace std;
 
 
 int main()
 {
-    
+    int temp;
     Controller controller;
     Player player(100);
 
@@ -13,7 +13,8 @@ int main()
 
     while (!player.isDead())
     {
-        controller.getKey();
+        temp = controller.getKey();
+        controller.printScreen(temp);
         player.subHealth(10);
     }
 
