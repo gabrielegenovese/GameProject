@@ -8,6 +8,8 @@ class Player
     public:
         Player(int life);
         bool isDead();
+        void addHealth(int n);
+        void subHealth(int n);
 };
 
 #endif

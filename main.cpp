@@ -7,13 +7,14 @@ int main()
 {
     
     Controller controller;
-    Player player;
+    Player player(100);
 
     controller.initTer();
 
     while (!player.isDead())
     {
-        
+        controller.getKey();
+        player.subHealth(10);
     }
 
     controller.endTer();
