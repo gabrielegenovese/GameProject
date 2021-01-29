@@ -1,12 +1,14 @@
 #include <ncurses.h>
 #include "player.hpp"
 
-Player::Player(int life)
+Player::Player(int maxX, int maxY)
 {
-    this->x = 0;
-    this->y = 0;
-    this->character = '*';
-    this->life = life;
+    this->x = 2;
+    this->y = 2;
+    this->character = '@';
+    this->life = 100;
+    this->maxX = maxX;
+    this->maxY = maxY;
 }
 
 void Player::move(int keyPressed)
@@ -55,19 +57,23 @@ void Player::subHealth(int n)
 }
 
 void Player::goUp() {
-    this->y--;
+    if(y-2 > 0)
+        this->y--;
 }
 
 void Player::goDown() {
-    this->y++;
+    if(y+2 < maxY)
+        this->y++;
 }
 
 void Player::goRight() {
-    this->x++;
+    if(x+2 < maxX)
+        this->x++;
 }
 
 void Player::goLeft() {
-    this->x--;
+    if(x-1 > 0)
+        this->x--;
 }
 
 int Player::getX() {

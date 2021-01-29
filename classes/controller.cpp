@@ -1,25 +1,26 @@
 #include <ncurses.h>
+#include <iostream>
+#include <string.h>
 #include "controller.hpp"
 
 
 Controller::Controller()
 {
-    initscr();
-    this->length = 30;
+    this->length = 50;
     this->heigth = 20;
+}
+
+void Controller::initTer() {
+    initscr();
     resize_term(heigth, length);
     raw();
     keypad(stdscr, true);
     noecho();
 }
 
-void Controller::initTer() {
-    initscr();
-}
-
 void Controller::SetPlayerRoom(const char *name, int n) {
     move(1,1);
-    printw("Player: %s\tStanza N°%d", name, n);
+    printw(" Player: %s\tStanza N°%d ", name, n);
 }
 
 void Controller::StartDraw() {
@@ -32,7 +33,7 @@ void Controller::EndDraw() {
 
 void Controller::print(int x, int y, char ch) {
     move(y, x);
-    printw("*");
+    printw("@");
 }
 
 int Controller::getKey() {
@@ -53,9 +54,10 @@ void Controller::endTer() {
 
 //prende il nome del giocatore dal terminale
 void Controller::getName(char *name){
-    char mesg[]="Inserisci il nome: ";
-    mvprintw(0, 0, mesg);
+    initscr();
+    mvprintw(1, 1,"Nome Giocatore: ");
     getstr(name);
+    endwin();
 }
 
 

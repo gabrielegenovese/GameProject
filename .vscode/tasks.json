@@ -10,7 +10,9 @@
 				"${file}",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
-				"-lncurses"
+				"-lncurses",
+				"-lncursesw",
+				"-I/usr/include/ncursesw"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
