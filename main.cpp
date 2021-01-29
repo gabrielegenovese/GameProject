@@ -45,8 +45,10 @@ int main()
         x = player.getX();
         y = player.getY();
         ch = player.getChar();
-
+        
+        controller.StartDraw();
         controller.print(x, y, ch);
+        controller.EndDraw();
     }
 
     controller.endTer();

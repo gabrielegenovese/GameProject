@@ -22,34 +22,32 @@ class Controller
         initscr();
     }
 
-    void refr()
-    {
+    void StartDraw() {
+        clear();
+    }
+
+    void EndDraw() {
         refresh();
     }
 
-    void print(int x, int y, char ch)
-    {
-        clear();
-        mvprintw(y, x, "");
+    void print(int x, int y, char ch) {
+        move(y, x);
+        printw("*");
     }
 
-    int getKey()
-    {
+    int getKey() {
         return getch();
     }
 
-    int getMaxX()
-    {
+    int getMaxX() {
         return this->maxX;
     }
 
-    int getMaxY()
-    {
+    int getMaxY() {
         return this->maxY;
     }
     
-    void endTer()
-    {
+    void endTer() {
         endwin();
     }
 };
