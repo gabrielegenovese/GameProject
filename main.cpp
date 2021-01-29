@@ -5,20 +5,18 @@
 int main()
 {
     int keyPressed, x, y;
-    char ch, *name;
+    char ch, name[80];
     bool quit = false;
-    Player player(100);
+
+
     Controller controller;
-    //controller.getName(name);
+    Player player(controller.getMaxX(), controller.getMaxY());
+    
+    controller.getName(name);
+    controller.initTer();
 
     while (!player.isDead() && !quit)
     {
-        controller.StartDraw();
-
-        controller.contorno(20,30);
-
-        controller.SetPlayerRoom("Geno", 0);  //scrive nome del giocatore e stanza sopra al campo
-
         keyPressed = controller.getKey();
         
         // muove il personaggio
@@ -26,9 +24,15 @@ int main()
         x = player.getX();
         y = player.getY();
         ch = player.getChar();
+
+        controller.StartDraw();
+
+        controller.contorno(20,49);
+        controller.SetPlayerRoom(name, 0);  //scrive nome del giocatore e stanza
         controller.print(x, y, ch);
 
         controller.EndDraw();
+
     }
 
     controller.endTer();
