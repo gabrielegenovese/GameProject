@@ -1,18 +1,14 @@
 #include <ncurses.h>
-#include <iostream>
-#include <string.h>
 #include "controller.hpp"
+#include "player.hpp"
+#include "printer.hpp"
 
 
 
-Controller::Controller()
-{
-<<<<<<< HEAD
-    initscr();
-=======
->>>>>>> 4f3f6e9b6074a18636f46594db794009ab6bd1d4
-    this->length = 50;
-    this->heigth = 20;
+Controller::Controller(int length, int heigth) {
+    this->length = length;
+    this->heigth = heigth;
+    this->time_passed = 0;
 }
 
 void Controller::initTer() {
@@ -21,24 +17,6 @@ void Controller::initTer() {
     raw();
     keypad(stdscr, true);
     noecho();
-}
-
-void Controller::SetPlayerRoom(const char *name, int n) {
-    move(1,1);
-    printw(" Player: %s\tStanza N°%d ", name, n);
-}
-
-void Controller::StartDraw() {
-    clear();
-}
-
-void Controller::EndDraw() {
-    refresh();
-}
-
-void Controller::print(int x, int y, char ch) {
-    move(y, x);
-    printw("@");
 }
 
 int Controller::getKey() {
@@ -66,15 +44,34 @@ void Controller::getName(char *name){
 }
 
 
-//date basi e altezza disegna un rettangolo 
-int Controller::contorno(int mlength, int mheigth) {
-    for(int y = 0; y < mheigth; y++) {
-        for(int x = 0; x < mlength; x++) {
-            if(y == 0 || x == 0 || x == (mlength - 1) || y == (mheigth - 1)) {
-                move(x, y);
-                printw("X");
-            }
-        }
+void Controller::run(Player player, Printer printer) {
+    int keyPressed, x, y;
+    char ch, name[80];
+    this->time_passed += 1;
+    this->getName(name);
+    this->initTer();
+
+    while (!player.isDead()) {
+        keyPressed = this->getKey();
+        
+        // muove il personaggio
+        player.move(keyPressed);
+        x = player.getX();
+        y = player.getY();
+        ch = player.getChar();
+
+        printer.startDraw();
+
+        printer.drawRect(0,0,heigth,length);
+        //printer.drawRect(3, 3, (heigth*3)/4, (length*3)/4);
+        printer.setPlayerRoom(name, 0, this->time_passed);  //scrive nome del giocatore e stanza
+        printer.print(x, y, player.getChar());
+
+        printer.endDraw();
+
     }
-    return 0;
+
+    this->endTer();
 }
+
+

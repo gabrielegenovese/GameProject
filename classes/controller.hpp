@@ -1,26 +1,30 @@
 #ifndef CONTROLLER_H_INCLUDED
 #define CONTROLLER_H_INCLUDED
 
+#include "player.hpp"
+#include "printer.hpp"
 
+/*
+Controller class -> interfaccia fa la classe printer e le varie altre classi
+*/
 class Controller
 {
     private:
-        //length and height
-        int length, heigth;     
+        int length, heigth;
+        int time_passed;
 
     public:
-        Controller();
+        Controller(int length, int heigth);
         void initTer();
-        void SetPlayerRoom(const char *name, int n);
-        void StartDraw();
-        void EndDraw() ;
-        void print(int x, int y, char ch) ;
-        int getKey() ;
-        int getMaxX() ;
-        int getMaxY() ;
         void endTer() ;
         void getName(char *name);
-        int contorno(int mlength, int mheigth);
+        void run(Player player, Printer printer);
+
+        //get method
+        int getKey();
+        int getMaxX();
+        int getMaxY();
+        
 };
 
 #endif

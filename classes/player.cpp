@@ -3,8 +3,9 @@
 
 Player::Player(int maxX, int maxY)
 {
-    this->x = 2;
-    this->y = 2;
+    //starting point
+    this->x = 5;
+    this->y = 5;
     this->character = '@';
     this->life = 100;
     this->maxX = maxX;
