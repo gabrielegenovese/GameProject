@@ -1,7 +1,6 @@
 #include "./classes/controller.hpp"
 #include "./classes/player.hpp"
-//#include <ncurses.h>
-using namespace std;
+#include <ncurses.h>
 
 
 int main()
