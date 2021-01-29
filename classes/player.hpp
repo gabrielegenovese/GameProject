@@ -13,6 +13,7 @@ class Player
         bool isDead();
         void addHealth(int n);
         void subHealth(int n);
+        void move(int keyPressed);
         void goUp();
         void goDown();
         void goRight();

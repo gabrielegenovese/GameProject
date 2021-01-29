@@ -2,51 +2,32 @@
 #include "./classes/player.hpp"
 #include <ncurses.h>
 
-
 int main()
 {
     int keyPressed, x, y;
-    char ch;
+    char ch, *name;
     bool quit = false;
     Player player(100);
     Controller controller;
+    //controller.getName(name);
 
     while (!player.isDead() && !quit)
     {
+        controller.StartDraw();
+
+        controller.contorno(20,30);
+
+        controller.SetPlayerRoom("Geno", 0);  //scrive nome del giocatore e stanza sopra al campo
+
         keyPressed = controller.getKey();
         
-        switch (keyPressed)
-        {
-        case KEY_UP:
-            player.goUp();
-            break;
-        
-        case KEY_DOWN:
-            player.goDown();
-            break;
-
-        case KEY_RIGHT:
-            player.goRight();
-            break;
-        
-        case KEY_LEFT:
-            player.goLeft();
-            break;
-        
-        case KEY_F(4):
-            quit = true;
-            break;
-
-        default:
-            break;
-        }
-
+        // muove il personaggio
+        player.move(keyPressed);
         x = player.getX();
         y = player.getY();
         ch = player.getChar();
-        
-        controller.StartDraw();
         controller.print(x, y, ch);
+
         controller.EndDraw();
     }
 
