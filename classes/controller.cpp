@@ -54,7 +54,7 @@ void Controller::endTer() {
 //prende il nome del giocatore dal terminale
 void Controller::getName(char *name){
     char mesg[]="Inserisci il nome: ";
-    mvprintw(0,0,msg);
+    mvprintw(0, 0, mesg);
     getstr(name);
 }
 
@@ -69,4 +69,5 @@ int Controller::contorno(int mlength, int mheigth) {
             }
         }
     }
+    return 0;
 }
