@@ -67,7 +67,7 @@ void Player::goDown() {
 }
 
 void Player::goRight() {
-    if(x+2 < maxX)
+    if(x+3 < maxX)
         this->x++;
 }
 
