@@ -4,9 +4,18 @@
 
 class Controller
 {
+    private:
+        int maxX, maxY;
     public:
 
-    Controller(){}
+    Controller()
+    {
+        initscr();
+        raw();
+        keypad(stdscr, true);
+        noecho();
+        getmaxyx(stdscr,maxY,maxX);
+    }
 
     void initTer()
     {
@@ -18,14 +27,25 @@ class Controller
         refresh();
     }
 
-    void printScreen(int n)
+    void print(int x, int y, char ch)
     {
-        mvprintw(0,0,"%c", (char)n);
+        clear();
+        mvprintw(y, x, "");
     }
 
     int getKey()
     {
         return getch();
+    }
+
+    int getMaxX()
+    {
+        return this->maxX;
+    }
+
+    int getMaxY()
+    {
+        return this->maxY;
     }
     
     void endTer()
