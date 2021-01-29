@@ -2,10 +2,11 @@
 #include "controller.hpp"
 
 
+
 Controller::Controller()
 {
     initscr();
-    this->length = 30;
+    this->length = 50;
     this->heigth = 20;
     resize_term(heigth, length);
     raw();
@@ -63,7 +64,7 @@ void Controller::getName(char *name){
 int Controller::contorno(int mlength, int mheigth) {
     for(int y = 0; y < mheigth; y++) {
         for(int x = 0; x < mlength; x++) {
-            if(y == 0 || x == 0 || x == (mlength - 1)) {
+            if(y == 0 || x == 0 || x == (mlength-1) || y == (mheigth-1)) {
                 move(x, y);
                 printw("X");
             }
