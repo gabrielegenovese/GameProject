@@ -27,6 +27,29 @@ void Printer::print(int x, int y, char ch) {
     printw("%c", ch);
 }
 
+/*
+temporary stuff
+
+char *video[] = {"-------------------------------------------------------------------",
+                "|                                                                  |",
+                "|                                                                  |",
+                "|                                                                  |",
+                "|                                                                  |",
+                "|                                                                  |",
+                "|                                                                  |",
+                "|                                                                  |",
+                "|                X                                                 |",
+                "|        XXXXXXXXXXXXXXX                                           |",
+                "|                                                                  |",
+                "--------------------------------------------------------------------"};
+
+*/
+
+
+
+
+
+
 //date basi e altezza disegna un rettangolo 
 void Printer::drawRect(int startX, int startY, int mlength, int mheigth) {
     for(int y = 0; y < mheigth; y++) {
