@@ -1,15 +1,17 @@
 #include "./classes/controller.hpp"
 #include "./classes/player.hpp"
 #include "./classes/printer.hpp"
-#include <ncurses.h>
+//#include <ncurses.h>
 
 int main()
 {
-    int altezza = 25;
-    int larghezza = 70;
+    int altezza = 40;
+    int larghezza = 100;
+    int minX = 2;
+    int minY = 1;
 
-    Controller controller(larghezza, altezza);
-    Player player(larghezza, altezza);
+    Controller controller(minX, minY, larghezza, altezza);
+    Player player(minY, minX, ((larghezza*3)/4), ((altezza*3)/4));
     Printer printer;
 
     controller.run(player, printer);

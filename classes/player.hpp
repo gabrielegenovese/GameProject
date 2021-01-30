@@ -4,12 +4,12 @@
 class Player
 {
     private:
-        int maxX, maxY, x, y;
+        int minX, minY, maxX, maxY, x, y;
         int life;
         char character;
         
     public:
-        Player(int maxX, int maxY);
+        Player(int minX, int minY, int maxX, int maxY);
         bool isDead();
         void addHealth(int n);
         void subHealth(int n);

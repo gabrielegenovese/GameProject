@@ -4,8 +4,9 @@
 #include "printer.hpp"
 
 
-
-Controller::Controller(int length, int heigth) {
+Controller::Controller(int minX, int minY, int length, int heigth) {
+    this->minX = minX;
+    this->minY = minY;
     this->length = length;
     this->heigth = heigth;
     this->time_passed = 0;
@@ -61,10 +62,10 @@ void Controller::run(Player player, Printer printer) {
         ch = player.getChar();
 
         printer.startDraw();
-
-        printer.drawRect(0,0,heigth,length);
-        //printer.drawRect(3, 3, (heigth*3)/4, (length*3)/4);
-        printer.setPlayerRoom(name, 0, this->time_passed);  //scrive nome del giocatore e stanza
+        
+        printer.drawRect(0, 0, heigth,length);                                  //finestra del gioco
+        printer.drawRect(this->minX, this->minY, (heigth*3)/4, (length*3)/4);   //finestra del campo
+        printer.setPlayerRoom(name, 0, this->time_passed);                      //scrive nome del giocatore e stanza
         printer.print(x, y, player.getChar());
 
         printer.endDraw();

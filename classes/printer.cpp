@@ -5,34 +5,40 @@ Printer::Printer(){
     //nothing
 }
 
+//stampa dati sopra la campo di gioco
 void Printer::setPlayerRoom(const char *name, int n, int time) {
     move(1, 1);
-    printw(" Player: %s\tStanza N°%d  time: %d", name, n, time);
+    printw(" Player: %s\tStanza N°%d\tTime: %d", name, n, time);
 }
 
+//cancella tutto quello che c'è sullo schermo
 void Printer::startDraw() {
     clear();
 }
 
+//disegna le tutto in una volta quello che c'è nel buffer
 void Printer::endDraw() {
     refresh();
 }
 
+//disegna un carattere ch in una posizione definita (x,y)
 void Printer::print(int x, int y, char ch) {
     move(y, x);
     printw("%c", ch);
 }
 
 //date basi e altezza disegna un rettangolo 
-int Printer::drawRect(int startX, int startY, int mlength, int mheigth) {
-    // da implementare startX e startY
+void Printer::drawRect(int startX, int startY, int mlength, int mheigth) {
     for(int y = 0; y < mheigth; y++) {
         for(int x = 0; x < mlength; x++) {
-            if(y == 0 || x == 0 || x == (mlength - 1) || y == (mheigth - 1)) {
+            if(y == 0 ||  y == (mheigth - 1)) {
                 move(startX+x, startY+y);
-                printw("X");
+                printw("|");
+            }
+            if(x == (mlength - 1) || x == 0){
+                move(startX+x, startY+y);
+                printw("-");
             }
         }
     }
-    return 0;
 }

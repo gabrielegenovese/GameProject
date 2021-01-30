@@ -3,6 +3,7 @@
 
 #include "player.hpp"
 #include "printer.hpp"
+#include <ncurses.h>
 
 /*
 Controller class -> interfaccia fa la classe printer e le varie altre classi
@@ -10,11 +11,11 @@ Controller class -> interfaccia fa la classe printer e le varie altre classi
 class Controller
 {
     private:
-        int length, heigth;
+        int length, heigth, minX, minY;
         int time_passed;
 
     public:
-        Controller(int length, int heigth);
+        Controller(int minX, int minY, int length, int heigth);
         void initTer();
         void endTer() ;
         void getName(char *name);

@@ -1,19 +1,21 @@
 #include <ncurses.h>
 #include "player.hpp"
 
-Player::Player(int maxX, int maxY)
-{
+Player::Player(int minX, int minY, int maxX, int maxY) {
     //starting point
-    this->x = 5;
-    this->y = 5;
+    this->x = minX+1;
+    this->y = maxY-1;
+    //character sprite
     this->character = '@';
     this->life = 100;
-    this->maxX = maxX;
-    this->maxY = maxY;
+    //borders
+    this->maxX = minX+maxX-1;
+    this->maxY = minY+maxY-1;
+    this->minX = minX;
+    this->minY = minY;
 }
 
-void Player::move(int keyPressed)
-{
+void Player::move(int keyPressed) {
     switch (keyPressed)
         {
         case KEY_UP:
@@ -41,14 +43,12 @@ void Player::move(int keyPressed)
         }
 }
 
-bool Player::isDead()
-{
+bool Player::isDead() {
     if(life <= 0) return true;
     else return false;
 }
 
-void Player::addHealth(int n)
-{
+void Player::addHealth(int n) {
     this->life += n;
 }
 
@@ -58,22 +58,22 @@ void Player::subHealth(int n)
 }
 
 void Player::goUp() {
-    if(y-2 > 0)
+    if(y-1 > minY)
         this->y--;
 }
 
 void Player::goDown() {
-    if(y+2 < maxY)
+    if(y+1 < maxY)
         this->y++;
 }
 
 void Player::goRight() {
-    if(x+3 < maxX)
+    if(x+1 < maxX)
         this->x++;
 }
 
 void Player::goLeft() {
-    if(x-1 > 0)
+    if(x-1 > minX)
         this->x--;
 }
 
