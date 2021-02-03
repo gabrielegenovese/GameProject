@@ -62,7 +62,7 @@ void Printer::printUI(const char *name, int room, int time, int points, int life
     move(15, 0);
     printw("|  Comandi:                                       4. %s   %d\t         |", r_name[3], r_points[3]);
     move(16, 0);
-    printw("|  F4: exit   arrow key: move                     5. %s   %d\t         |", r_name[4], r_points[4]);
+    printw("|  F4: exit   arrow keys: move                    5. %s   %d\t         |", r_name[4], r_points[4]);
     move(17, 0);
     printw("|  E: shoot                                                 \t         |");
     move(18, 0);
