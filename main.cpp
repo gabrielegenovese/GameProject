@@ -5,10 +5,10 @@
 
 int main()
 {
-    int altezza = 40;
-    int larghezza = 100;
+    int altezza = 18;
+    int larghezza = 62;
     int minX = 2;
-    int minY = 1;
+    int minY = 2;
 
     Controller controller(minX, minY, larghezza, altezza);
     Player player(minY, minX, ((larghezza*3)/4), ((altezza*3)/4));
