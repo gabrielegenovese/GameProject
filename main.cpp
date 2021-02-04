@@ -6,12 +6,15 @@
 int main()
 {
     int altezza = 18;
-    int larghezza = 62;
-    int minX = 2;
-    int minY = 2;
+    int larghezza = 76;
 
-    Controller controller(minX, minY, larghezza, altezza);
-    Player player(minY, minX, ((larghezza*3)/4), ((altezza*3)/4));
+    int game_x = 2;
+    int game_y = 2;
+    int game_width = 46;
+    int game_heigth = 14;
+
+    Controller controller(game_x, game_y, game_width, game_heigth, larghezza, altezza);
+    Player player(game_x, game_y, game_width, game_heigth);
     Printer printer;
 
     controller.run(player, printer);

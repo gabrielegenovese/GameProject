@@ -4,10 +4,12 @@
 #include "printer.hpp"
 
 
-Controller::Controller(int minX, int minY, int length, int heigth) {
-    this->minX = minX;
-    this->minY = minY;
-    this->length = length;
+Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth) {
+    this->game_x = game_x;
+    this->game_y = game_y;
+    this->game_width = game_width;
+    this->game_heigth = game_heigth;
+    this->width = width;
     this->heigth = heigth;
     this->time_passed = 0;
 }
@@ -62,15 +64,19 @@ void Controller::run(Player player, Printer printer) {
 
         printer.startDraw();
         
-        printer.printUI(name, 0, time_passed, 43, 100, 10, weapon, r_names, r_points);
-        //printer.drawRect(0, 0, heigth,length);                                  //finestra del gioco
-        //printer.drawRect(this->minX, this->minY, (heigth*3)/4, (length*3)/4);   //finestra del campo
+        printer.printUI(name, 0, time_passed, 43, 100, 10, weapon, r_names, r_points, game_x+game_width);
+        
+        printer.drawRect(0, 0, this->width, this->heigth);      //riquadro gui
+        printer.drawRect(this->game_x, this->game_y, this->game_width, this->game_heigth);  //riquadro campo 
+
         //printer.setPlayerRoom(name, 0, this->time_passed);                      //scrive nome del giocatore e stanza
+        
         printer.print(x, y, player.getChar());
 
         this->time_passed += 1;
         printer.endDraw();
 
+        timeout(50);    //50 millisecond
     }
     endwin();
 }

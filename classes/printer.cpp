@@ -28,58 +28,44 @@ void Printer::print(int x, int y, char ch) {
 }
 
 //disegna l'UI del gioco
-void Printer::printUI(const char *name, int room, int time, int points, int life, int strength, const char *weapon, const char *r_name[], int r_points[]) {
-    move(0, 0);
-    printw("--------------------------------------------------------------------------");
-    move(1, 0);
-    printw("|   Player: %s           Stanza N°%d  Time: %d                \t         |", name, room, time);
-    move(2, 0);
-    printw("| ----------------------------------------------              \t         |");
-    move(3, 0);
-    printw("| |                                            |  Punteggio %d\t         |", points);
-    move(4, 0);
-    printw("| |                                            |              \t         |");
-    move(5, 0);
-    printw("| |                                            |  Vita      %d\t         |", life);
-    move(6, 0);
-    printw("| |                                            |               \t         |");
-    move(7, 0);
-    printw("| |                                            |  Forza     %d\t         |", strength);
-    move(8, 0);
-    printw("| |                                            |              \t         |");
-    move(9, 0); 
-    printw("| |                                            |  Arma      %s        |", weapon);
-    move(10, 0);
-    printw("| |                                            |              \t         |");
-    move(11, 0);
-    printw("| |                                            |  Classifica:\t         |");
-    move(12, 0);
-    printw("| |                                            |  1. %s   %d\t         |", r_name[0], r_points[0]);
-    move(13, 0);
-    printw("| |                                            |  2. %s   %d\t         |", r_name[1], r_points[1]);
-    move(14, 0);
-    printw("| ----------------------------------------------  3. %s   %d\t         |", r_name[2], r_points[2]);
+void Printer::printUI(const char *name, int room, int time, int points, int life, int strength, const char *weapon, const char *r_name[], int r_points[], int x_offset) {
+    move(1, 3);
+    printw("Player: %s           Stanza N°%d  Time: %d", name, room, time);
+    move(3, 52);
+    printw("Punteggio %d", points);
+    move(5, x_offset);
+    printw("  Vita      %d", life);
+    move(7, x_offset);
+    printw("  Forza     %d", strength);
+    move(9, x_offset); 
+    printw("  Arma      %s", weapon);
+    move(11, x_offset);
+    printw("  Classifica:");
+    move(12, x_offset);
+    printw("  1. %s   %d", r_name[0], r_points[0]);
+    move(13, x_offset);
+    printw("  2. %s   %d", r_name[1], r_points[1]);
+    move(14, x_offset);
+    printw("  3. %s   %d", r_name[2], r_points[2]);
     move(15, 0);
-    printw("|  Comandi:                                       4. %s   %d\t         |", r_name[3], r_points[3]);
+    printw("   Comandi:                                       4. %s   %d", r_name[3], r_points[3]);
     move(16, 0);
-    printw("|  F4: exit   arrow keys: move                    5. %s   %d\t         |", r_name[4], r_points[4]);
+    printw("   F4: exit   arrow keys: move                    5. %s   %d", r_name[4], r_points[4]);
     move(17, 0);
-    printw("|  E: shoot                                                 \t         |");
-    move(18, 0);
-    printw("--------------------------------------------------------------------------");
+    printw("   E: shoot");
 }
 
 //date basi e altezza disegna un rettangolo 
-void Printer::drawRect(int startX, int startY, int mlength, int mheigth) {
+void Printer::drawRect(int startX, int startY, int mwidth, int mheigth) {
     for(int y = 0; y < mheigth; y++) {
-        for(int x = 0; x < mlength; x++) {
+        for(int x = 0; x < mwidth; x++) {
             if(y == 0 ||  y == (mheigth - 1)) {
-                move(startX+x, startY+y);
-                printw("|");
-            }
-            if(x == (mlength - 1) || x == 0){
-                move(startX+x, startY+y);
+                move(startY+y, startX+x);
                 printw("-");
+            }
+            else if(x == (mwidth - 1) || x == 0){
+                move(startY+y, startX+x);
+                printw("|");
             }
         }
     }

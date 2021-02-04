@@ -12,7 +12,7 @@ class Printer {
         void setPlayerRoom(const char *name, int n, int time);
         void print(int x, int y, char ch);
         void drawRect(int startX, int startY, int mlength, int mheigth);
-        void printUI(const char *name, int room, int time, int points, int life, int strength, const char *weapon, const char *r_name[], int r_points[]);
+        void printUI(const char *name, int room, int time, int points, int life, int strength, const char *weapon, const char *r_name[], int r_points[], int x_offset);
 
         //da implementare
         //void printRoom(char **room);  -> stampa la stanza di gioco

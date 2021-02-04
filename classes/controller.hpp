@@ -11,11 +11,11 @@ Controller class -> interfaccia fa la classe printer e le varie altre classi
 class Controller
 {
     private:
-        int length, heigth, minX, minY;
+        int width, heigth, game_x, game_y, game_width, game_heigth;
         int time_passed;
 
     public:
-        Controller(int minX, int minY, int length, int heigth);
+        Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth);
         void init_main_ter();  
         void getName(char *name);
         void run(Player player, Printer printer);
