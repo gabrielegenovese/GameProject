@@ -16,13 +16,11 @@ class Controller
 
     public:
         Controller(int minX, int minY, int length, int heigth);
-        void initTer();
-        void endTer() ;
+        void init_main_ter();  
         void getName(char *name);
         void run(Player player, Printer printer);
 
         //get method
-        int getKey();
         int getMaxX();
         int getMaxY();
         

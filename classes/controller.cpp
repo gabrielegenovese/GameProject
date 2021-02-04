@@ -12,29 +12,20 @@ Controller::Controller(int minX, int minY, int length, int heigth) {
     this->time_passed = 0;
 }
 
-void Controller::initTer() {
+void Controller::init_main_ter() {
     initscr();
-    resize_term(heigth, length);
-    raw();
+    cbreak();
+    nodelay(stdscr, TRUE);
+    curs_set(FALSE);
     keypad(stdscr, true);
     noecho();
 }
 
-int Controller::getKey() {
-    return getch();
-}
-
-int Controller::getMaxX() {
-    return this->length;
-}
 
 int Controller::getMaxY() {
     return this->heigth;
 }
 
-void Controller::endTer() {
-    endwin();
-}
 
 //prende il nome del giocatore dal terminale
 void Controller::getName(char *name){
@@ -48,17 +39,20 @@ void Controller::getName(char *name){
 void Controller::run(Player player, Printer printer) {
     int keyPressed, x, y;
     char ch, name[80];
-    this->time_passed += 1;
-    this->getName(name);
-    this->initTer();
 
     //temporary
     const char *r_names[] = {"a", "b", "C", "d", "e"};
     int r_points[] = {1421, 123, 23, 4, 1};
     const char *weapon = "Glock";
 
+    this->getName(name);
+
+    init_main_ter();
+    
+
     while (!player.isDead()) {
-        keyPressed = this->getKey();
+        
+        keyPressed = getch();
         
         // muove il personaggio
         player.move(keyPressed);
@@ -68,17 +62,17 @@ void Controller::run(Player player, Printer printer) {
 
         printer.startDraw();
         
-        printer.printUI(name, 0, 1, 43, 100, 10, weapon, r_names, r_points);
+        printer.printUI(name, 0, time_passed, 43, 100, 10, weapon, r_names, r_points);
         //printer.drawRect(0, 0, heigth,length);                                  //finestra del gioco
         //printer.drawRect(this->minX, this->minY, (heigth*3)/4, (length*3)/4);   //finestra del campo
         //printer.setPlayerRoom(name, 0, this->time_passed);                      //scrive nome del giocatore e stanza
         printer.print(x, y, player.getChar());
 
+        this->time_passed += 1;
         printer.endDraw();
 
     }
-
-    this->endTer();
+    endwin();
 }
 
 
