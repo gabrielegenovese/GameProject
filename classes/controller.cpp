@@ -59,7 +59,7 @@ void Controller::run(Player player, Printer printer) {
     while (!player.isDead()) {
         
         keyPressed = getch();
-        
+        // sos ba uf
         // muove il personaggio
         player.move(keyPressed);
         x = player.getX();
