@@ -3,7 +3,6 @@
 #include "player.hpp"
 #include "printer.hpp"
 
-
 Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth) {
     this->game_x = game_x;
     this->game_y = game_y;
@@ -12,6 +11,7 @@ Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, 
     this->width = width;
     this->heigth = heigth;
     this->time_passed = 0;
+    this->exit = false;
 }
 
 void Controller::init_main_ter() {
@@ -23,15 +23,49 @@ void Controller::init_main_ter() {
     noecho();
 }
 
+//controllo che la posizione x y sia uno spazio vuoto
+bool Controller::can_player_move(int x, int y) {
+    if(mvinch(y, x) == ' ') return true;
+    else return false;
+}
+
+void Controller::move_player(Player& player, int keyPressed) {
+    int x = player.getX();
+    int y = player.getY();
+    switch (keyPressed)
+    {
+    case KEY_UP:
+        player.goUp(can_player_move(x, --y));
+        break;
+    
+    case KEY_DOWN:
+        player.goDown(can_player_move(x, ++y));
+        break;
+
+    case KEY_RIGHT:
+        player.goRight(can_player_move(++x, y));
+        break;
+    
+    case KEY_LEFT:
+        player.goLeft(can_player_move(--x, y));
+        break;
+    
+    case KEY_F(4):
+        exit = true;
+        break;
+
+    default:
+        break;
+    }
+}
 
 int Controller::getMaxY() {
     return this->heigth;
 }
 
 int Controller::getMaxX() {
-    return this->game_width;
+    return this->width;
 }
-
 
 //prende il nome del giocatore dal terminale
 void Controller::getName(char *name){
@@ -40,7 +74,6 @@ void Controller::getName(char *name){
     getstr(name);
     endwin();
 }
-
 
 void Controller::run(Player player, Printer printer) {
     int keyPressed, x, y;
@@ -55,13 +88,12 @@ void Controller::run(Player player, Printer printer) {
 
     init_main_ter();
     
-
-    while (!player.isDead()) {
+    while (!player.isDead() && !exit) {
         
         keyPressed = getch();
         
         // muove il personaggio
-        player.move(keyPressed);
+        move_player(player, keyPressed);
         x = player.getX();
         y = player.getY();
         ch = player.getChar();
@@ -70,15 +102,14 @@ void Controller::run(Player player, Printer printer) {
         
         printer.printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width, game_y+game_heigth);
         
-        printer.drawRect(0, 0, this->width, this->heigth);      //riquadro gui
+        printer.drawRect(0, 0, this->width, this->heigth);                                  //riquadro gui
         printer.drawRect(this->game_x, this->game_y, this->game_width, this->game_heigth);  //riquadro campo 
 
-        
         printer.print(x, y, player.getChar());
 
-        this->time_passed += 1;
         printer.endDraw();
 
+        this->time_passed += 1;
         timeout(50);    //50 millisecond
     }
     endwin();

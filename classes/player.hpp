@@ -4,20 +4,19 @@
 class Player
 {
     private:
-        int minX, minY, maxX, maxY, x, y;
+        int x, y;
         int life;
         char character;
         
     public:
-        Player(int minX, int minY, int maxX, int maxY);
+        Player();
         bool isDead();
         void addHealth(int n);
         void subHealth(int n);
-        void move(int keyPressed);
-        void goUp();
-        void goDown();
-        void goRight();
-        void goLeft();
+        void goUp(bool can);
+        void goDown(bool can);
+        void goRight(bool can);
+        void goLeft(bool can);
         int getX();
         int getY();
         char getChar();

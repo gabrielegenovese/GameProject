@@ -26,21 +26,21 @@ void Printer::print(int x, int y, char ch) {
 void Printer::printUI(const char *name, int room, int time, int points, int life, int strength, const char *weapon, const char *r_name[], int r_points[], int x_offset, int y_offset) {
     move(1, 3);
     printw("Player: %s           Stanza N°%d  Time: %d", name, room, time);
-    move(3, 52);
-    printw("Punteggio %d", points);
+    move(3, x_offset);
+    printw("  Punteggio %d", points);
     move(5, x_offset);
     printw("  Vita      %d", life);
     move(7, x_offset);
     printw("  Forza     %d", strength);
     move(9, x_offset); 
     printw("  Arma      %s", weapon);
-    move(11, x_offset);
-    printw("  Classifica:");
     move(12, x_offset);
-    printw("  1. %s   %d", r_name[0], r_points[0]);
+    printw("  Classifica:");
     move(13, x_offset);
-    printw("  2. %s   %d", r_name[1], r_points[1]);
+    printw("  1. %s   %d", r_name[0], r_points[0]);
     move(14, x_offset);
+    printw("  2. %s   %d", r_name[1], r_points[1]);
+    move(15, x_offset);
     printw("  3. %s   %d", r_name[2], r_points[2]);
     move(16, x_offset);
     printw("  4. %s   %d", r_name[3], r_points[3]);
