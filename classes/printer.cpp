@@ -5,11 +5,6 @@ Printer::Printer(){
     //nothing
 }
 
-//stampa dati sopra la campo di gioco
-void Printer::setPlayerRoom(const char *name, int n, int time) {
-    move(1, 1);
-    printw(" Player: %s\tStanza N°%d\tTime: %d", name, n, time);
-}
 
 //cancella tutto quello che c'è sullo schermo
 void Printer::startDraw() {

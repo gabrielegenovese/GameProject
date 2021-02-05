@@ -28,6 +28,10 @@ int Controller::getMaxY() {
     return this->heigth;
 }
 
+int Controller::getMaxX() {
+    return this->game_width;
+}
+
 
 //prende il nome del giocatore dal terminale
 void Controller::getName(char *name){
@@ -64,12 +68,11 @@ void Controller::run(Player player, Printer printer) {
 
         printer.startDraw();
         
-        printer.printUI(name, 0, time_passed, 43, 100, 10, weapon, r_names, r_points, game_x+game_width);
+        printer.printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width);
         
         printer.drawRect(0, 0, this->width, this->heigth);      //riquadro gui
         printer.drawRect(this->game_x, this->game_y, this->game_width, this->game_heigth);  //riquadro campo 
 
-        //printer.setPlayerRoom(name, 0, this->time_passed);                      //scrive nome del giocatore e stanza
         
         printer.print(x, y, player.getChar());
 
