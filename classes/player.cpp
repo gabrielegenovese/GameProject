@@ -1,46 +1,13 @@
 #include <ncurses.h>
 #include "player.hpp"
 
-Player::Player(int minX, int minY, int maxX, int maxY) {
+Player::Player() {
     //starting point
-    this->x = minX+1;
-    this->y = maxY-1;
+    this->x = 5;
+    this->y = 5;
     //character sprite
     this->character = '@';
     this->life = 100;
-    //borders
-    this->maxX = minX+maxX-1;
-    this->maxY = minY+maxY-1;
-    this->minX = minX;
-    this->minY = minY;
-}
-
-void Player::move(int keyPressed) {
-    switch (keyPressed)
-        {
-        case KEY_UP:
-            this->goUp();
-            break;
-        
-        case KEY_DOWN:
-            this->goDown();
-            break;
-
-        case KEY_RIGHT:
-            this->goRight();
-            break;
-        
-        case KEY_LEFT:
-            this->goLeft();
-            break;
-        
-        case KEY_F(4):
-            this->life = 0;
-            break;
-
-        default:
-            break;
-        }
 }
 
 bool Player::isDead() {
@@ -57,23 +24,23 @@ void Player::subHealth(int n)
     this->life -= n;
 }
 
-void Player::goUp() {
-    if(y-1 > minY)
+void Player::goUp(bool can) {
+    if(can)
         this->y--;
 }
 
-void Player::goDown() {
-    if(y+1 < maxY)
+void Player::goDown(bool can) {
+    if(can)
         this->y++;
 }
 
-void Player::goRight() {
-    if(x+1 < maxX)
+void Player::goRight(bool can) {
+    if(can)
         this->x++;
 }
 
-void Player::goLeft() {
-    if(x-1 > minX)
+void Player::goLeft(bool can) {
+    if(can)
         this->x--;
 }
 
