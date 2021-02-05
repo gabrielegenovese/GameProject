@@ -23,7 +23,7 @@ void Printer::print(int x, int y, char ch) {
 }
 
 //disegna l'UI del gioco
-void Printer::printUI(const char *name, int room, int time, int points, int life, int strength, const char *weapon, const char *r_name[], int r_points[], int x_offset) {
+void Printer::printUI(const char *name, int room, int time, int points, int life, int strength, const char *weapon, const char *r_name[], int r_points[], int x_offset, int y_offset) {
     move(1, 3);
     printw("Player: %s           Stanza N°%d  Time: %d", name, room, time);
     move(3, 52);
@@ -42,11 +42,15 @@ void Printer::printUI(const char *name, int room, int time, int points, int life
     printw("  2. %s   %d", r_name[1], r_points[1]);
     move(14, x_offset);
     printw("  3. %s   %d", r_name[2], r_points[2]);
-    move(15, 0);
-    printw("   Comandi:                                       4. %s   %d", r_name[3], r_points[3]);
-    move(16, 0);
-    printw("   F4: exit   arrow keys: move                    5. %s   %d", r_name[4], r_points[4]);
-    move(17, 0);
+    move(16, x_offset);
+    printw("  4. %s   %d", r_name[3], r_points[3]);
+    move(17, x_offset);
+    printw("  5. %s   %d", r_name[4], r_points[4]);
+    move(y_offset, 0);
+    printw("   Comandi:");
+    move(y_offset+1, 0);
+    printw("   F4: exit   arrow keys: move");
+    move(y_offset+2, 0);
     printw("   E: shoot");
 }
 
