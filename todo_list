@@ -1,5 +1,17 @@
 TODOLIST
 
+Field
+    Si occupa di generare la mappa, i nemici eccetera
+    1. Contiene in memoria tutte le "stanze"
+    2. Metodo per generare le stanze
+    3. get_field(posizione_giocatore) -> attraverso controller permette di stampare lo schemro di gioco
+    4. 
+
+Enemy
+    Creare i vari nemici, dove la loro potenza aumenta al progredire del gioco
+    
+
+
 Printer
     1. printUI(...) è un metodo troppo grasso e non scalabile. Va un po' generalizzato per adattarsi
        a diverse situazioni (lunghezze e larghezze diverse) e semplificato.
