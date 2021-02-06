@@ -5,18 +5,23 @@ Field
     1. Contiene in memoria tutte le "stanze"
     2. Metodo per generare le stanze
     3. get_field(posizione_giocatore) -> ritorna la "stanza" 
-    *** si potrebbe creare un classe STANZA, in modo tale che Filed generi stanza (così almeno usiamo un po' gli oggetti in modo sensato) ***
+    *** si potrebbe creare un classe STANZA, in modo tale che Filed generi stanza
+        (così almeno usiamo un po' gli oggetti in modo sensato) ***
 
 Enemy
     Creare i vari nemici, dove la loro potenza aumenta al progredire del gioco
+    (geno - io farei una classe generale per tutti i mostri e poi sottoclassi
+    per fare vari mostri diversi, boss... e la potenza potrebbe essere una variabile
+    che va a moltiplicare i valori forza e vita)
 
 Player
-    1. Implementare parametri forza, velocità, arma (opzionale, da Implementare tramite un oggetto dopo se si vuole dare varietà al gioco)    
-    2. Togliere parametri minX, maxX, minY e maxY
+    1.  Decidere la modalità di attacco e animarla
+    2.  Implementare parametri forza, velocità, arma con relativi metodi set e get
+        (opzionale, da implementare tramite una classe se si vuole dare varietà al gioco)
 
 Printer
     1. printUI(...) è un metodo troppo grasso e non scalabile. Va un po' generalizzato per adattarsi
-       a diverse situazioni (lunghezze e larghezze diverse) e semplificato.
+       a diverse situazioni (lunghezze e larghezze diverse) e semplificato. (Fatto fabio?)
     
 
 Problemi generali
@@ -24,7 +29,7 @@ Problemi generali
        di pulire un pò creando struct e passando quelle ai metodi
     
 
-Robe fantasiose da Implementare quando il gioco sarà già avanti con lo sviluppo:
+Robe fantasiose da implementare quando il gioco sarà già avanti con lo sviluppo:
     - Armi
     - Oggetti
     - Bonus
