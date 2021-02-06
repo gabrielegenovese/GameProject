@@ -12,6 +12,7 @@ Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, 
     this->heigth = heigth;
     this->time_passed = 0;
     this->exit = false;
+    this->shoots = NULL;
 }
 
 void Controller::init_main_ter() {
@@ -21,6 +22,49 @@ void Controller::init_main_ter() {
     curs_set(FALSE);
     keypad(stdscr, true);
     noecho();
+}
+
+SHOOTS Controller::newShoot(int x, int y) {
+    SHOOTS tmp = new shooting;
+    tmp->x = x;
+    tmp->y = y;
+    tmp->speed = 1;
+    tmp->next = this->shoots;
+    return tmp;
+}
+
+void Controller::printShoots() {
+    SHOOTS tmp = this->shoots;
+    while (tmp != NULL)
+    {
+        tmp->x += tmp->speed;
+        move(tmp->y, tmp->x);
+        printw("---");
+        tmp = tmp->next;
+    }
+}
+
+SHOOTS Controller::removeShoots() {
+    if(this->shoots != NULL) {
+        if(this->shoots->next != NULL) {
+            SHOOTS tmp = this->shoots, prec = this->shoots;
+            while(tmp != NULL) {
+                if(tmp->x+3  > game_width){
+                    prec->next = NULL;
+                    delete(tmp);
+                    return(this->shoots);
+                }
+                prec = tmp;
+                tmp = tmp->next;
+            }
+        }else{
+            if(this->shoots->x+3  > game_width){
+                delete(this->shoots);
+                return NULL;
+            }
+        }
+    }
+    return this->shoots;
 }
 
 //controllo che la posizione x y sia uno spazio vuoto
@@ -52,6 +96,10 @@ void Controller::move_player(Player& player, int keyPressed) {
     
     case KEY_F(4):
         exit = true;
+        break;
+
+    case 'e':
+        this->shoots = newShoot(x, y);
         break;
 
     default:
@@ -105,7 +153,10 @@ void Controller::run(Player player, Printer printer) {
         printer.drawRect(0, 0, this->width, this->heigth);                                  //riquadro gui
         printer.drawRect(this->game_x, this->game_y, this->game_width, this->game_heigth);  //riquadro campo 
 
-        printer.print(x, y, player.getChar());
+        printer.print(x, y, ch);
+
+        printShoots();
+        this->shoots = removeShoots();
 
         printer.endDraw();
 

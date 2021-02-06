@@ -5,7 +5,6 @@ Printer::Printer(){
     //nothing
 }
 
-
 //cancella tutto quello che c'è sullo schermo
 void Printer::startDraw() {
     clear();
@@ -65,6 +64,10 @@ void Printer::drawRect(int startX, int startY, int mwidth, int mheigth) {
             else if(x == (mwidth - 1) || x == 0){
                 move(startY+y, startX+x);
                 printw("|");
+            }
+            if((x==0 && y==0)||(x==0 && y==(mheigth-1))||(x==(mwidth-1) && y==0)||(x==(mwidth-1) && y==(mheigth-1))) {
+                move(startY+y, startX+x);
+                printw("+");
             }
         }
     }
