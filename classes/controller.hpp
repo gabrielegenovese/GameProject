@@ -33,7 +33,7 @@ class Controller
         void getName(char *name);
 
         //player methods
-        bool can_player_move(int x, int y);
+        bool isEmpty(int x, int y);
         void move_player(Player& player, int keyPressed);
 
         //testing per lo shooting ed è da spostare e controllare

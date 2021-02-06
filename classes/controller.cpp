@@ -49,7 +49,7 @@ SHOOTS Controller::removeShoots() {
         if(this->shoots->next != NULL) {
             SHOOTS tmp = this->shoots, prec = this->shoots;
             while(tmp != NULL) {
-                if(tmp->x+3  > game_width){
+                if(!isEmpty(tmp->x+3,tmp->y)){
                     prec->next = NULL;
                     delete(tmp);
                     return(this->shoots);
@@ -68,7 +68,7 @@ SHOOTS Controller::removeShoots() {
 }
 
 //controllo che la posizione x y sia uno spazio vuoto
-bool Controller::can_player_move(int x, int y) {
+bool Controller::isEmpty(int x, int y) {
     if(mvinch(y, x) == ' ') return true;
     else return false;
 }
@@ -79,19 +79,19 @@ void Controller::move_player(Player& player, int keyPressed) {
     switch (keyPressed)
     {
     case KEY_UP:
-        player.goUp(can_player_move(x, --y));
+        player.goUp(isEmpty(x, --y));
         break;
     
     case KEY_DOWN:
-        player.goDown(can_player_move(x, ++y));
+        player.goDown(isEmpty(x, ++y));
         break;
 
     case KEY_RIGHT:
-        player.goRight(can_player_move(++x, y));
+        player.goRight(isEmpty(++x, y));
         break;
     
     case KEY_LEFT:
-        player.goLeft(can_player_move(--x, y));
+        player.goLeft(isEmpty(--x, y));
         break;
     
     case KEY_F(4):
@@ -107,27 +107,19 @@ void Controller::move_player(Player& player, int keyPressed) {
     }
 }
 
-int Controller::getMaxY() {
-    return this->heigth;
-}
-
-int Controller::getMaxX() {
-    return this->width;
-}
-
 //prende il nome del giocatore dal terminale
 void Controller::getName(char *name){
     initscr();
-    mvprintw(1, 1,"Nome Giocatore: ");
+    mvprintw(1, 1,"Nome Giocatore (max 20 char): ");
     getstr(name);
     endwin();
 }
 
 void Controller::run(Player player, Printer printer) {
     int keyPressed, x, y;
-    char ch, name[80];
+    char ch, name[20];
 
-    //temporary
+    //temporary var
     const char *r_names[] = {"a", "b", "C", "d", "e"};
     int r_points[] = {1421, 123, 23, 4, 1};
     const char *weapon = "Glock";
@@ -156,14 +148,21 @@ void Controller::run(Player player, Printer printer) {
         printer.print(x, y, ch);
 
         printShoots();
-        this->shoots = removeShoots();
 
         printer.endDraw();
 
+        this->shoots = removeShoots();
         this->time_passed += 1;
-        timeout(50);    //50 millisecond
+        timeout(50);                    //50 milliseconds
     }
     endwin();
 }
 
 
+int Controller::getMaxY() {
+    return this->heigth;
+}
+
+int Controller::getMaxX() {
+    return this->width;
+}
