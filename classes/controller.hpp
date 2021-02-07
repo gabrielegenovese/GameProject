@@ -23,6 +23,7 @@ class Controller
         int width, heigth, game_x, game_y, game_width, game_heigth;
         int time_passed;
         bool exit;
+        bool eCoolDown;
         SHOOTS shoots;
 
     public:
@@ -37,6 +38,7 @@ class Controller
         void move_player(Player& player, int keyPressed);
 
         //testing per lo shooting ed è da spostare e controllare
+        void eCD(int& cECD);
         SHOOTS newShoot(int x, int y);
         void printShoots();
         SHOOTS removeShoots();

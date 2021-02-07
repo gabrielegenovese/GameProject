@@ -12,6 +12,7 @@ Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, 
     this->heigth = heigth;
     this->time_passed = 0;
     this->exit = false;
+    this->eCoolDown = false;
     this->shoots = NULL;
 }
 
@@ -73,6 +74,26 @@ bool Controller::isEmpty(int x, int y) {
     else return false;
 }
 
+void Controller::eCD(int& cECD) {
+    if(this->eCoolDown) {
+        if (cECD < 0){
+            cECD = 3;
+            this->eCoolDown = false;
+        } else {
+            cECD--;
+        }
+    }
+}
+
+
+/*
+volevo provare a togliere il dalay che c'è se tengo premuto un tasto
+ma non si riesce a fare con ncurses, si riesce solo con un comando
+linux. Segui link sotto se vuoi saperne di più:
+https://unix.stackexchange.com/questions/58651/adjusting-keyboard-sensitivity-in-a-command-line-terminal
+
+Ho cercato anche un modo per sparare mentre ci si muove ma non si riesce a fare
+*/
 void Controller::move_player(Player& player, int keyPressed) {
     int x = player.getX();
     int y = player.getY();
@@ -99,7 +120,10 @@ void Controller::move_player(Player& player, int keyPressed) {
         break;
 
     case 'e':
-        this->shoots = newShoot(x, y);
+        if(!this->eCoolDown) {
+            this->shoots = newShoot(x, y);
+            this->eCoolDown = true;
+        }
         break;
 
     default:
@@ -120,7 +144,7 @@ void Controller::run(Player player, Printer printer) {
     char ch, name[20];
 
     //temporary var
-    const char *r_names[] = {"a", "b", "C", "d", "e"};
+    const char *r_names[] = {"Geronimo", "Gianni", "Gigio", "Giornix", "Geppo"};
     int r_points[] = {1421, 123, 23, 4, 1};
     const char *weapon = "Glock";
 
@@ -128,8 +152,14 @@ void Controller::run(Player player, Printer printer) {
 
     init_main_ter();
     
+    int cECD = 5;
+
     while (!player.isDead() && !exit) {
         
+        // evito lo spam di spari così non ho più quell'errore
+        // pezza orribile
+        eCD(cECD);
+
         keyPressed = getch();
         
         // muove il personaggio
