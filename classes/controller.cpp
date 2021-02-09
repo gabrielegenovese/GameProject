@@ -2,6 +2,7 @@
 #include "controller.hpp"
 #include "player.hpp"
 #include "printer.hpp"
+#include "room.hpp"
 
 Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth) {
     this->game_x = game_x;
@@ -84,12 +85,18 @@ void Controller::run(Player player, Printer printer) {
     int r_points[] = {1421, 123, 23, 4, 1};
     const char *weapon = "Glock";
 
+    //TEMP 2
+    Room r1 (50, 16, 1);
+        
+
     this->getName(name);
 
     init_main_ter();
     
     while (!player.isDead() && !exit) {
         
+        
+
         keyPressed = getch();
         
         // muove il personaggio
@@ -99,7 +106,8 @@ void Controller::run(Player player, Printer printer) {
         ch = player.getChar();
 
         printer.startDraw();
-        
+        //printer.print_room(r1.get_content(), game_x, game_y, game_width, game_heigth);
+
         printer.printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width, game_y+game_heigth);
         
         printer.drawRect(0, 0, this->width, this->heigth);                                  //riquadro gui
