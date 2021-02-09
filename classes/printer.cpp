@@ -69,3 +69,13 @@ void Printer::drawRect(int startX, int startY, int mwidth, int mheigth) {
         }
     }
 }
+
+
+void Printer::print_room(char ** cont, int x, int y, int width, int heigth) {
+    for (int i = 0; i < heigth; i++) {
+        for (int j = 0; j < width; j++) {
+            move(i+y, j+x);
+            printw((*(cont+i)+j));
+        }
+    }
+}

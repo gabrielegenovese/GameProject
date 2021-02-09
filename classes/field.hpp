@@ -1,24 +1,25 @@
-/*
-
-*/
+#include "room.hpp"
+#include <ncurses.h>
 
 #ifndef FIELD_H_INCLUDED
 #define FIELD_H_INCLUDED
 
-#include "room.hpp"
-
-//lista bilinkata di "stanze" 
 struct room_list {
     Room value;
-    room_list * prec;
     room_list * next;
+    room_list * prec;
 };
 
 class Field {
     private:
-        room_list game_level;
-
+        int width, height;
+        room_list * levels;
+        void add_room();
+        
     public:
+        Field (int width, int height);
+        char ** get_screen(int x, int y, int width, int height);
+
 
 };
 
