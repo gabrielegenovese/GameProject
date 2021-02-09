@@ -2,7 +2,7 @@
 #include "controller.hpp"
 #include "player.hpp"
 #include "printer.hpp"
-#include "room.hpp"
+#include "field.hpp"
 
 Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth) {
     this->game_x = game_x;
@@ -86,7 +86,7 @@ void Controller::run(Player player, Printer printer) {
     const char *weapon = "Glock";
 
     //TEMP 2
-    Room r1 (50, 16, 1);
+    Field r1 (50, 1);
         
 
     this->getName(name);
@@ -106,7 +106,7 @@ void Controller::run(Player player, Printer printer) {
         ch = player.getChar();
 
         printer.startDraw();
-        //printer.print_room(r1.get_content(), game_x, game_y, game_width, game_heigth);
+        printer.print_room(r1.get_screen(-1, -1, -1, -1), game_x, game_y, game_width, game_heigth);
 
         printer.printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width, game_y+game_heigth);
         

@@ -7,12 +7,13 @@
 
 class Room {
     private:
-        int width, heigth;
+        int width, height;
         int level;
         char** content;
 
     public:
-        Room(int width, int heigth, int level);
+        Room ();
+        Room(int width, int height, int level);
         char** generate_room();
         char** get_content();
 
