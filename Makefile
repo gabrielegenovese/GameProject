@@ -1,7 +1,7 @@
-main: main.o controller.o player.o printer.o field.o
-	g++ -o -Wall main main.o controller.o player.o printer.o field.o room.o -lcurses
+main: main.o controller.o player.o printer.o field.o room.o
+	g++ -o main main.o controller.o player.o printer.o field.o room.o -lcurses 
 
-main.o: main.cpp ./classes/controller.hpp ./classes/player.hpp ./classes/printer.hpp ./classes/field.hpp
+main.o: main.cpp ./classes/controller.hpp ./classes/player.hpp ./classes/printer.hpp
 	g++ -c -Wall main.cpp
 
 controller.o: ./classes/controller.cpp ./classes/controller.hpp 
@@ -10,7 +10,7 @@ controller.o: ./classes/controller.cpp ./classes/controller.hpp
 room.o: ./classes/room.cpp ./classes/room.hpp
 	g++ -c -Wall ./classes/room.cpp
 
-field.o: ./classes/field.cpp ./classes/field.hpp ./classes/room.hpp
+field.o: ./classes/field.cpp ./classes/field.hpp 
 	g++ -c -Wall ./classes/field.cpp
 
 player.o: ./classes/player.cpp ./classes/player.hpp

@@ -5,7 +5,7 @@
 #define FIELD_H_INCLUDED
 
 struct room_list {
-    Room value;
+    Room * value;
     room_list * next;
     room_list * prec;
 };
@@ -13,7 +13,8 @@ struct room_list {
 class Field {
     private:
         int width, height;
-        room_list * levels;
+        room_list * first_level;
+        room_list * current_level;
         void add_room();
         
     public:

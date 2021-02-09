@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <iostream>
 #include "controller.hpp"
 #include "player.hpp"
 #include "printer.hpp"
@@ -86,8 +87,7 @@ void Controller::run(Player player, Printer printer) {
     const char *weapon = "Glock";
 
     //TEMP 2
-    Field r1 (50, 1);
-        
+    Field r1 (50, 16);
 
     this->getName(name);
 
