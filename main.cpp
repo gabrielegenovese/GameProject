@@ -8,8 +8,8 @@ int main()
     int altezza = 22;
     int larghezza = 82;
 
-    int game_x = 2;
-    int game_y = 2;
+    int game_x = 3;
+    int game_y = 3;
     int game_width = 50;
     int game_heigth = 16;
 

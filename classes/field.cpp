@@ -8,7 +8,6 @@ Field::Field(int width, int height) {
     this->height =height;
     first_level = new room_list;
     first_level->value = new Room(width, height, 0);
-    std::cout << "this much\n";
     first_level->next=NULL;
     first_level->prec = NULL;
     current_level = first_level;

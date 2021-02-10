@@ -1,28 +1,38 @@
 TODOLIST
 
-Field
-    Si occupa di generare la mappa, i nemici eccetera
-    1. Contiene in memoria tutte le "stanze"
-    2. Metodo per generare le stanze
-    3. get_field(posizione_giocatore) -> ritorna la "stanza" 
-    *** si potrebbe creare un classe STANZA, in modo tale che Filed generi stanza
-        (così almeno usiamo un po' gli oggetti in modo sensato) ***
+Field:
+    1. get_screen(): penso che dovrebbe prendere in input le coordinate relative di player 
+       alla stanza corrente. Queste coordinate devono essere passate per riferimento cosicchè
+       field può riposizionare il player (durante un cambio di stanza o con un'eventuale telecamera)
+       Il workflow sarebbe
+            1) plyer chiede a field se può spostarsi in posizione (x, y)
+            2) field vede se la posizione è libera
+            3) se sì allora field effettua tutti i controlli sugli spostamenti della telecamera
+            4) riposiziona (x, y) in base ai controlli
+       
+
+
+    Room:
+        1. Metodo per generare stanze "giocabili"
+        3. Posizionare i nemici
+
+Player
+    1.  Decidere la modalità di attacco e animarla
+    2.  Implementare parametri forza, velocità, arma con relativi metodi set e get
+        (opzionale, da implementare tramite una classe se si vuole dare varietà al gioco)
+    3.  (fabio - io darei a player una posizione relativa, farei gestire a lui tutti i movimenti.   
+        per le collisioni si potrebbe fare che player chiede a field se si può spostare nella posizione desiderata, e in base alla risposta il movimento avviene o meno) -> vedi Field
+
+Printer
+    1. printUI(...) è un metodo troppo grasso e non scalabile. Va un po' generalizzato per adattarsi
+       a diverse situazioni (lunghezze e larghezze diverse) e semplificato. (Fatto fabio?)
 
 Enemy
     Creare i vari nemici, dove la loro potenza aumenta al progredire del gioco
     (geno - io farei una classe generale per tutti i mostri e poi sottoclassi
     per fare vari mostri diversi, boss... e la potenza potrebbe essere una variabile
     che va a moltiplicare i valori forza e vita)
-
-Player
-    1.  Decidere la modalità di attacco e animarla
-    2.  Implementare parametri forza, velocità, arma con relativi metodi set e get
-        (opzionale, da implementare tramite una classe se si vuole dare varietà al gioco)
-
-Printer
-    1. printUI(...) è un metodo troppo grasso e non scalabile. Va un po' generalizzato per adattarsi
-       a diverse situazioni (lunghezze e larghezze diverse) e semplificato. (Fatto fabio?)
-    
+    (fabio - sono d'accordo con geno)
 
 Problemi generali
     1. i metodi (printUI) stanno incomincinado a prendersi un botto di argomenti. Si può considerare 

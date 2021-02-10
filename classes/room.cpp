@@ -16,7 +16,9 @@ char** Room::generate_room() {
     for (int row = 0; row < height; row++) {
         *(start+row) = new char [width];
         for (int col = 0; col < width; col++) {
-            *(*(start+row) + col) = (char)((int)'a' + level);
+            if ((row == 0 && col == 0) || (row == height-1 && col == 0) || (row == 0 && col == width-1) || (row == height-1 && col == width-1)) {
+                *(*(start+row) + col) = (char)((int)'a' + level);
+            }
         }
     }
     return start;

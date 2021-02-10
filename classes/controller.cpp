@@ -29,6 +29,7 @@ void Controller::init_main_ter() {
 bool Controller::can_player_move(int x, int y) {
     if(mvinch(y, x) == ' ') return true;
     else return false;
+    return true;
 }
 
 void Controller::move_player(Player& player, int keyPressed) {
@@ -87,7 +88,7 @@ void Controller::run(Player player, Printer printer) {
     const char *weapon = "Glock";
 
     //TEMP 2
-    Field r1 (50, 16);
+    Field r1 (game_width, game_heigth);
 
     this->getName(name);
 
@@ -108,10 +109,11 @@ void Controller::run(Player player, Printer printer) {
         printer.startDraw();
         printer.print_room(r1.get_screen(-1, -1, -1, -1), game_x, game_y, game_width, game_heigth);
 
-        printer.printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width, game_y+game_heigth);
-        
-        printer.drawRect(0, 0, this->width, this->heigth);                                  //riquadro gui
-        printer.drawRect(this->game_x, this->game_y, this->game_width, this->game_heigth);  //riquadro campo 
+        printer.printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width+1, game_y+game_heigth+1);
+        //riquadro gui
+        printer.drawRect(0, 0, this->width, this->heigth);      
+        //riquadro campo                
+        printer.drawRect(this->game_x-1, this->game_y-1, this->game_width+2, this->game_heigth+2);  
 
         printer.print(x, y, player.getChar());
 
