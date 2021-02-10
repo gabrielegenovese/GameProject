@@ -16,8 +16,6 @@ class Room {
         char** generate_room();
         char** get_content();
 
-
-
 };
 
 #endif

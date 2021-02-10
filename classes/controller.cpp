@@ -80,7 +80,7 @@ void Controller::getName(char *name){
 
 void Controller::run(Player player, Printer printer) {
     int keyPressed, x, y;
-    char ch, name[80];
+    char name[80];
 
     //temporary
     const char *r_names[] = {"a", "b", "C", "d", "e"};
@@ -88,7 +88,7 @@ void Controller::run(Player player, Printer printer) {
     const char *weapon = "Glock";
 
     //TEMP 2
-    Field r1 (game_width, game_heigth);
+    Field r1(game_width, game_heigth);
 
     this->getName(name);
 
@@ -96,16 +96,13 @@ void Controller::run(Player player, Printer printer) {
     
     while (!player.isDead() && !exit) {
         
-        
-
         keyPressed = getch();
         
         // muove il personaggio
         move_player(player, keyPressed);
         x = player.getX();
         y = player.getY();
-        ch = player.getChar();
-
+        
         printer.startDraw();
         printer.print_room(r1.get_screen(-1, -1, -1, -1), game_x, game_y, game_width, game_heigth);
 

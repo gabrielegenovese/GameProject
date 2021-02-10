@@ -11,10 +11,10 @@ int main()
     int game_x = 3;
     int game_y = 3;
     int game_width = 50;
-    int game_heigth = 16;
+    int game_heigth = 14;
 
     Controller controller(game_x, game_y, game_width, game_heigth, larghezza, altezza);
-    Player player; //game_x, game_y, game_width, game_heigth);
+    Player player;
     Printer printer;
 
     controller.run(player, printer);
