@@ -32,4 +32,22 @@ void Field::add_room() {
 
 char** Field::get_screen(int x, int y, int width, int height) {
     return (*(current_level->value)).get_content();
-}
+};
+
+void Field::player_move(int& player_x, int& player_y, int dest_y, int dest_x) {
+    if (check_movement(player_x, player_y, dest_y, dest_x)) {
+        //if (player_x + dest_y < )
+        player_x = dest_x;
+        player_y = dest_y;
+    } else {
+        //bho
+    }
+};
+
+bool Field::check_movement(int player_x, int player_y, int dest_y, int dest_x) {
+    if ((*(current_level->value)).is_free(dest_x, dest_y)) {
+        return true;
+    } else {
+        return false;
+    }
+};

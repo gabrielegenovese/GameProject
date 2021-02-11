@@ -23,3 +23,8 @@ char** Room::generate_room() {
     }
     return start;
 }
+
+bool Room::is_free(int x, int y) {
+    if (*(*(content+y)+x) == ' ') return true;
+    else return false; 
+}

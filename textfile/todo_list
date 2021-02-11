@@ -2,8 +2,8 @@ TODOLIST
 
 Field:
     1. get_screen(): penso che dovrebbe prendere in input le coordinate relative di player 
-       alla stanza corrente. Queste coordinate devono essere passate per riferimento cosicchè
-       field può riposizionare il player (durante un cambio di stanza o con un'eventuale telecamera)
+       alla stanza corrente.
+       Field deve poter riposizionare il player (durante un cambio di stanza o con un'eventuale telecamera)
        Il workflow sarebbe
             1) plyer chiede a field se può spostarsi in posizione (x, y)
             2) field vede se la posizione è libera

@@ -15,6 +15,7 @@ class Room {
         Room(int width, int height, int level);
         char** generate_room();
         char** get_content();
+        bool is_free(int x, int y);
 
 
 
