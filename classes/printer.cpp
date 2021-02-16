@@ -1,28 +1,25 @@
 #include <ncurses.h>
 #include "printer.hpp"
 
-Printer::Printer(){
-    //nothing
-}
 
 //cancella tutto quello che c'è sullo schermo
-void Printer::startDraw() {
+void startDraw() {
     clear();
 }
 
 //disegna le tutto in una volta quello che c'è nel buffer
-void Printer::endDraw() {
+void endDraw() {
     refresh();
 }
 
 //disegna un carattere ch in una posizione definita (x,y)
-void Printer::print(int x, int y, char ch) {
+void my_print(int x, int y, char ch) {
     move(y, x);
     printw("%c", ch);
 }
 
 //disegna l'UI del gioco
-void Printer::printUI(const char *name, int room, int time, int points, int life, int strength, const char *weapon, const char *r_name[], int r_points[], int x_offset, int y_offset) {
+void printUI(const char *name, int room, int time, int points, int life, int strength, const char *weapon, const char *r_name[], int r_points[], int x_offset, int y_offset) {
     move(1, 3);
     printw("Player: %s           Stanza N°%d  Time: %d", name, room, time);
     move(3, x_offset);
@@ -54,7 +51,7 @@ void Printer::printUI(const char *name, int room, int time, int points, int life
 }
 
 //date basi e altezza disegna un rettangolo 
-void Printer::drawRect(int startX, int startY, int mwidth, int mheigth) {
+void drawRect(int startX, int startY, int mwidth, int mheigth) {
     for(int y = 0; y < mheigth; y++) {
         for(int x = 0; x < mwidth; x++) {
             if(y == 0 ||  y == (mheigth - 1)) {
@@ -74,11 +71,22 @@ void Printer::drawRect(int startX, int startY, int mwidth, int mheigth) {
 }
 
 
-void Printer::print_room(char ** cont, int x, int y, int width, int heigth) {
+void print_room(char ** cont, int x, int y, int width, int heigth) {
     for (int i = 0; i < heigth; i++) {
         for (int j = 0; j < width; j++) {
             move(i+y, j+x);
             printw((*(cont+i)+j));
         }
     }
+}
+
+
+void print_string(int x, int y, const char* s) {
+    move(y, x);
+    printw("%s", s);
+}
+
+void print_number(int x, int y, int n) {
+    move(y, x);
+    printw("%d", n);
 }

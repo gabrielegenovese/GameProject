@@ -1,5 +1,6 @@
 #include "field.hpp"
 #include "room.hpp"
+#include "printer.hpp"
 #include <ncurses.h>
 #include <iostream>
 
@@ -34,20 +35,23 @@ char** Field::get_screen(int x, int y, int width, int height) {
     return (*(current_level->value)).get_content();
 };
 
-void Field::player_move(int& player_x, int& player_y, int dest_y, int dest_x) {
-    if (check_movement(player_x, player_y, dest_y, dest_x)) {
+void Field::move_player(Player& player, int dest_x, int dest_y) {
+    if (check_movement(player.getX(), player.getY(), dest_x, dest_y)) {
         //if (player_x + dest_y < )
-        player_x = dest_x;
-        player_y = dest_y;
+        player.setX(dest_x);
+        player.setY(dest_y);
     } else {
         //bho
     }
 };
 
-bool Field::check_movement(int player_x, int player_y, int dest_y, int dest_x) {
+bool Field::check_movement(int start_x, int start_y, int dest_x, int dest_y) {
+    
+    if (dest_y < 0 || dest_y >= height || dest_x < 0 || dest_x >= width) return false;
     if ((*(current_level->value)).is_free(dest_x, dest_y)) {
         return true;
     } else {
         return false;
     }
+    
 };

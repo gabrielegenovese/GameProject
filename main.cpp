@@ -14,10 +14,9 @@ int main()
     int game_heigth = 14;
 
     Controller controller(game_x, game_y, game_width, game_heigth, larghezza, altezza);
-    Player player;
-    Printer printer;
+    Player player(1, game_heigth-2);
 
-    controller.run(player, printer);
+    controller.run(player);
 
     return 0;
 }

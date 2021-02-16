@@ -1,4 +1,5 @@
 #include "room.hpp"
+#include "printer.hpp"
 
 Room::Room(int width, int height, int level) {
     this->width = width;
@@ -18,6 +19,9 @@ char** Room::generate_room() {
         for (int col = 0; col < width; col++) {
             if ((row == 0 && col == 0) || (row == height-1 && col == 0) || (row == 0 && col == width-1) || (row == height-1 && col == width-1)) {
                 *(*(start+row) + col) = (char)((int)'a' + level);
+            } 
+            else {
+                *(*(start+row) + col) = ' ';
             }
         }
     }
@@ -25,6 +29,11 @@ char** Room::generate_room() {
 }
 
 bool Room::is_free(int x, int y) {
-    if (*(*(content+y)+x) == ' ') return true;
-    else return false; 
+    //print_number(5, 5, *(*(content+y)+x) == ' ');
+    if (*(*(content+y)+x) == ' ') {
+        return true;  
+    } 
+    else {
+        return false; 
+    } 
 }

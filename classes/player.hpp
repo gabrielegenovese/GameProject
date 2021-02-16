@@ -1,6 +1,14 @@
 #ifndef PLAYER_H_INCLUDED
 #define PLAYER_H_INCLUDED
 
+struct Coordinate
+{
+    int x;
+    int y;
+};
+
+typedef Coordinate *coord;
+
 class Player
 {
     private:
@@ -9,14 +17,13 @@ class Player
         char character;
         
     public:
-        Player();
+        Player(int startingX, int startingY);
         bool isDead();
         void addHealth(int n);
         void subHealth(int n);
-        void goUp(bool can);
-        void goDown(bool can);
-        void goRight(bool can);
-        void goLeft(bool can);
+        coord move(int keyPressed);
+        void setX(int x);
+        void setY(int y);
         int getX();
         int getY();
         char getChar();
