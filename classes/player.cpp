@@ -82,3 +82,4 @@ int Player::getY() {
 char Player::getChar() {
     return character;
 }
+
