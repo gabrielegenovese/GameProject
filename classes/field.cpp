@@ -5,7 +5,7 @@
 
 Field::Field(int width, int height) {
     this->width = width;
-    this->height =height;
+    this->height = height;
     first_level = new room_list;
     first_level->value = new Room(width, height, 0);
     first_level->next=NULL;

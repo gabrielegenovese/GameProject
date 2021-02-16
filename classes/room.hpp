@@ -17,8 +17,6 @@ class Room {
         char** get_content();
         bool is_free(int x, int y);
 
-
-
 };
 
 #endif

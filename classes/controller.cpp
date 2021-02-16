@@ -14,6 +14,8 @@ Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, 
     this->heigth = heigth;
     this->time_passed = 0;
     this->exit = false;
+    this->eCoolDown = false;
+    this->shoots = NULL;
 }
 
 void Controller::init_main_ter() {
@@ -25,36 +27,106 @@ void Controller::init_main_ter() {
     noecho();
 }
 
+SHOOTS Controller::newShoot(int x, int y) {
+    SHOOTS tmp = new shooting;
+    tmp->x = x;
+    tmp->y = y;
+    tmp->speed = 1;
+    tmp->next = this->shoots;
+    return tmp;
+}
+
+void Controller::printShoots() {
+    SHOOTS tmp = this->shoots;
+    while (tmp != NULL)
+    {
+        tmp->x += tmp->speed;
+        move(tmp->y, tmp->x);
+        printw("---");
+        tmp = tmp->next;
+    }
+}
+
+SHOOTS Controller::removeShoots() {
+    if(this->shoots != NULL) {
+        if(this->shoots->next != NULL) {
+            SHOOTS tmp = this->shoots, prec = this->shoots;
+            while(tmp != NULL) {
+                if(!isEmpty(tmp->x+3,tmp->y)){
+                    prec->next = NULL;
+                    delete(tmp);
+                    return(this->shoots);
+                }
+                prec = tmp;
+                tmp = tmp->next;
+            }
+        }else{
+            if(this->shoots->x+3  > game_width){
+                delete(this->shoots);
+                return NULL;
+            }
+        }
+    }
+    return this->shoots;
+}
+
 //controllo che la posizione x y sia uno spazio vuoto
-bool Controller::can_player_move(int x, int y) {
+bool Controller::isEmpty(int x, int y) {
     if(mvinch(y, x) == ' ') return true;
     else return false;
     return true;
 }
 
+void Controller::eCD(int& cECD) {
+    if(this->eCoolDown) {
+        if (cECD < 0){
+            cECD = 3;
+            this->eCoolDown = false;
+        } else {
+            cECD--;
+        }
+    }
+}
+
+
+/*
+volevo provare a togliere il dalay che c'è se tengo premuto un tasto
+ma non si riesce a fare con ncurses, si riesce solo con un comando
+linux. Segui link sotto se vuoi saperne di più:
+https://unix.stackexchange.com/questions/58651/adjusting-keyboard-sensitivity-in-a-command-line-terminal
+
+Ho cercato anche un modo per sparare mentre ci si muove ma non si riesce a fare
+*/
 void Controller::move_player(Player& player, int keyPressed) {
     int x = player.getX();
     int y = player.getY();
     switch (keyPressed)
     {
     case KEY_UP:
-        player.goUp(can_player_move(x, --y));
+        player.goUp(isEmpty(x, --y));
         break;
     
     case KEY_DOWN:
-        player.goDown(can_player_move(x, ++y));
+        player.goDown(isEmpty(x, ++y));
         break;
 
     case KEY_RIGHT:
-        player.goRight(can_player_move(++x, y));
+        player.goRight(isEmpty(++x, y));
         break;
     
     case KEY_LEFT:
-        player.goLeft(can_player_move(--x, y));
+        player.goLeft(isEmpty(--x, y));
         break;
     
     case KEY_F(4):
         exit = true;
+        break;
+
+    case 'e':
+        if(!this->eCoolDown) {
+            this->shoots = newShoot(x, y);
+            this->eCoolDown = true;
+        }
         break;
 
     default:
@@ -62,41 +134,37 @@ void Controller::move_player(Player& player, int keyPressed) {
     }
 }
 
-int Controller::getMaxY() {
-    return this->heigth;
-}
-
-int Controller::getMaxX() {
-    return this->width;
-}
-
 //prende il nome del giocatore dal terminale
 void Controller::getName(char *name){
     initscr();
-    mvprintw(1, 1,"Nome Giocatore: ");
+    mvprintw(1, 1,"Nome Giocatore (max 20 char): ");
     getstr(name);
     endwin();
 }
 
 void Controller::run(Player player, Printer printer) {
     int keyPressed, x, y;
-    char ch, name[80];
+    char name[20];
 
-    //temporary
-    const char *r_names[] = {"a", "b", "C", "d", "e"};
+    //temporary var
+    const char *r_names[] = {"Geronimo", "Gianni", "Gigio", "Giornix", "Geppo"};
     int r_points[] = {1421, 123, 23, 4, 1};
     const char *weapon = "Glock";
 
     //TEMP 2
-    Field r1 (game_width, game_heigth);
+    Field r1(game_width, game_heigth);
 
     this->getName(name);
 
     init_main_ter();
     
+    int cECD = 5;
+
     while (!player.isDead() && !exit) {
         
-        
+        // evito lo spam di spari così non ho più quell'errore
+        // pezza orribile
+        eCD(cECD);
 
         keyPressed = getch();
         
@@ -104,8 +172,7 @@ void Controller::run(Player player, Printer printer) {
         move_player(player, keyPressed);
         x = player.getX();
         y = player.getY();
-        ch = player.getChar();
-
+        
         printer.startDraw();
         printer.print_room(r1.get_screen(-1, -1, -1, -1), game_x, game_y, game_width, game_heigth);
 
@@ -115,14 +182,24 @@ void Controller::run(Player player, Printer printer) {
         //riquadro campo                
         printer.drawRect(this->game_x-1, this->game_y-1, this->game_width+2, this->game_heigth+2);  
 
-        printer.print(x, y, player.getChar());
+        printer.print(x, y, ch);
+
+        printShoots();
 
         printer.endDraw();
 
+        this->shoots = removeShoots();
         this->time_passed += 1;
-        timeout(50);    //50 millisecond
+        timeout(50);                    //50 milliseconds
     }
     endwin();
 }
 
 
+int Controller::getMaxY() {
+    return this->heigth;
+}
+
+int Controller::getMaxX() {
+    return this->width;
+}

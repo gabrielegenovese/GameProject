@@ -9,17 +9,23 @@ Field:
             2) field vede se la posizione è libera
             3) se sì allora field effettua tutti i controlli sugli spostamenti della telecamera
             4) riposiziona (x, y) in base ai controlli
-       
-
-
+            
     Room:
         1. Metodo per generare stanze "giocabili"
         3. Posizionare i nemici
 
+Enemy (SIMO)
+    Creare i vari nemici, dove la loro potenza aumenta al progredire del gioco
+    (by geno - io farei una classe generale per tutti i mostri e poi sottoclassi
+    per fare vari mostri diversi, boss... e la potenza potrebbe essere una variabile
+    che va a moltiplicare i valori forza e vita)
+
 Player
-    1.  Decidere la modalità di attacco e animarla
+    1.  Sparo implementato, ma sarebbe da mettere in un file diverso tipo shoots.cpp
+        oppure da fare una sua classe e quindi ripensare tutta la stuttura
     2.  Implementare parametri forza, velocità, arma con relativi metodi set e get
         (opzionale, da implementare tramite una classe se si vuole dare varietà al gioco)
+
     3.  (fabio - io darei a player una posizione relativa, farei gestire a lui tutti i movimenti.   
         per le collisioni si potrebbe fare che player chiede a field se si può spostare nella posizione desiderata, e in base alla risposta il movimento avviene o meno) -> vedi Field
 
@@ -34,16 +40,18 @@ Enemy
     che va a moltiplicare i valori forza e vita)
     (fabio - sono d'accordo con geno)
 
+
 Problemi generali
     1. i metodi (printUI) stanno incomincinado a prendersi un botto di argomenti. Si può considerare 
        di pulire un pò creando struct e passando quelle ai metodi
+    2. FIle con tutte le varie struct
     
-
 Robe fantasiose da implementare quando il gioco sarà già avanti con lo sviluppo:
+    - Abilità stile lol o ow
+    - Nemici strani
     - Armi
     - Oggetti
     - Bonus
     - Malus
-    - Nemici strani
     - Boss
     - ...
