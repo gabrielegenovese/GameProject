@@ -14,7 +14,7 @@ int main()
     int game_heigth = 14;
 
     Controller controller(game_x, game_y, game_width, game_heigth, larghezza, altezza);
-    Player player(1, game_heigth-2);
+    Player player(1, 1);
 
     controller.run(player);
 

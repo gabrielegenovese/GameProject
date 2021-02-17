@@ -16,7 +16,7 @@ Field::Field(int width, int height) {
 
 void Field::add_room() {
     room_list * p = first_level;
-    int counter = 0;
+    int counter = 1;
     
     // p cannot be NULL because of Class constructor
     while(p->next != NULL) {
@@ -36,8 +36,8 @@ char** Field::get_screen(int x, int y, int width, int height) {
 };
 
 void Field::move_player(Player& player, int dest_x, int dest_y) {
+    //dest_x and dest_y may be modified to reposition the character;
     if (check_movement(player.getX(), player.getY(), dest_x, dest_y)) {
-        //if (player_x + dest_y < )
         player.setX(dest_x);
         player.setY(dest_y);
     } else {
@@ -45,9 +45,28 @@ void Field::move_player(Player& player, int dest_x, int dest_y) {
     }
 };
 
-bool Field::check_movement(int start_x, int start_y, int dest_x, int dest_y) {
-    
-    if (dest_y < 0 || dest_y >= height || dest_x < 0 || dest_x >= width) return false;
+bool Field::check_movement(int start_x, int start_y, int& dest_x, int& dest_y) {
+    //boundary check...
+    if (dest_y < 0 || dest_y >= height) {
+        return false;
+    } else {
+        if (dest_x < 0) {
+            if (current_level->prec == NULL) return false;
+            else {
+                current_level = current_level->prec;
+                dest_x = width+dest_x;
+            }
+        } else if (dest_x >= width) {
+            if (current_level->next == NULL) {
+                add_room();
+                current_level = current_level->next;
+            }
+            else {
+                current_level = current_level->next;
+            }
+            dest_x = dest_x-width;
+        }
+    }
     if ((*(current_level->value)).is_free(dest_x, dest_y)) {
         return true;
     } else {
