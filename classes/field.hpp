@@ -20,10 +20,10 @@ class Field {
         
     public:
         Field (int width, int height);
-        char ** get_screen(int x, int y, int width, int height);
+        void print_screen(int x_player, int x, int y, int width, int height);
         void move_player(Player& player, int dest_y, int dest_x);
         bool check_movement(int start_x, int start_y, int& dest_x, int& dest_y);
-
+        int reloc_x_player(int x_p);
 };
 
 #endif
