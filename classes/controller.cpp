@@ -4,7 +4,6 @@
 #include "player.hpp"
 #include "printer.hpp"
 #include "field.hpp"
-//#include "shoots.cpp"
 
 Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth) {
     this->game_x = game_x;
@@ -16,7 +15,7 @@ Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, 
     this->time_passed = 0;
     this->exit = false;
     this->eCoolDown = false;
-    //this->shoots = NULL;
+    this->shoots = NULL;
 }
 
 void Controller::init_main_ter() {
@@ -37,7 +36,7 @@ void Controller::keyManage(int keyPressed, int x, int y) {
     case KEY_RIGHT:
         break;
     case 'e':
-        //this->shoots = newShoot(this->shoots, x, y);
+        this->shoots = newShoot(this->shoots, x, y);
         break;
     case KEY_F(4):
         exit = true;
@@ -88,12 +87,12 @@ void Controller::run(Player player) {
         printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width+1, game_y+game_heigth+1);
         print_borders();
         my_print(player.getX()+game_x, player.getY()+game_y, player.getChar());
-        //printShoots(this->shoots);
+        printShoots(this->shoots);
 
         endDraw();
 
         //game loop ending routine
-        //this->shoots = removeShoots(this->shoots, campo);
+        this->shoots = removeShoots(this->shoots, campo);
         this->time_passed += 1;
         timeout(50);                    //50 milliseconds
     }

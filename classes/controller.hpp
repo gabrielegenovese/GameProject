@@ -3,7 +3,7 @@
 
 #include "player.hpp"
 #include "printer.hpp"
-//#include "shoots.cpp"
+#include "shoots.cpp"
 #include <ncurses.h>
 
 /*
@@ -14,7 +14,7 @@ class Controller
     private:
         int width, heigth, game_x, game_y, game_width, game_heigth, time_passed;
         bool exit, eCoolDown;
-        //SHOOTS shoots;
+        SHOOTS shoots;
 
     public:
         Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth);
