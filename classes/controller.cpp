@@ -82,10 +82,12 @@ void Controller::run(Player player) {
         campo.move_player(player, des_loc->x, des_loc->y);
         keyManage(keyPressed, player.getX(), player.getY());
 
-        print_room(campo.get_screen(-1, -1, -1, -1), game_x, game_y, game_width, game_heigth);
+        
+        campo.print_screen(player.getX(), game_x, game_y, game_width, game_heigth);
         printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width+1, game_y+game_heigth+1);
         print_borders();
         my_print(player.getX()+game_x, player.getY()+game_y, player.getChar());
+        
         printShoots(this->shoots, this->game_width);
 
         endDraw();

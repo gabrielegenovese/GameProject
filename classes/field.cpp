@@ -12,6 +12,8 @@ Field::Field(int width, int height) {
     first_level->next=NULL;
     first_level->prec = NULL;
     current_level = first_level;
+    //generiamo immediatamente la prossima stanza
+    add_room();
 };
 
 void Field::add_room() {
@@ -31,8 +33,39 @@ void Field::add_room() {
     p->next = tmp;
 };
 
-char** Field::get_screen(int x, int y, int width, int height) {
-    return (*(current_level->value)).get_content();
+void Field::print_screen(int x_player, int x, int y, int width, int height) {
+    int diff = x_player - this->width/2;
+    char ** res;
+
+    if (this->current_level == this->first_level && diff <= 0) {
+        res = (*(current_level->value)).get_content();
+        print_room(res, x, y, width, height);
+    } else {
+        //get the two room from which i get the screen
+        char ** part1 = (*(current_level->value)).get_content();
+        char ** part2;
+        if (diff > 0) part2 = (*(current_level->next->value)).get_content();
+        else part2 = (*(current_level->prec->value)).get_content();
+
+        //combine the two room 
+        res = new char * [this->height];
+        for (int row = 0; row < this->height; row++) {
+            *(res+row) = new char [this->width];
+            for (int col = 0; col < this->width; col++) {
+                if (diff > 0) {
+                    if (col < width-diff) res[row][col] = part1[row][col+diff];
+                    else res[row][col] = part2[row][col-width+diff];
+                }
+                else if (diff < 0) {
+                    if (col+diff < 0) res[row][col] = part2[row][col+width+diff];
+                    else res[row][col] = part1[row][col+diff];
+                } 
+                else res[row][col] = part1[row][col];
+            }
+        }
+        print_room(res, x, y, width, height);
+        delete res;
+    }
 };
 
 void Field::move_player(Player& player, int dest_x, int dest_y) {
@@ -57,7 +90,7 @@ bool Field::check_movement(int start_x, int start_y, int& dest_x, int& dest_y) {
                 dest_x = width+dest_x;
             }
         } else if (dest_x >= width) {
-            if (current_level->next == NULL) {
+            if (current_level->next->next == NULL) {
                 add_room();
                 current_level = current_level->next;
             }
@@ -74,3 +107,10 @@ bool Field::check_movement(int start_x, int start_y, int& dest_x, int& dest_y) {
     }
     
 };
+
+int Field::reloc_x_player(int x_p) {
+    if (this->current_level == this->first_level && x_p - width/2 <= 0) return x_p;
+    else {
+        return width/2;
+    }
+}
