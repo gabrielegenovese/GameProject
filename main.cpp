@@ -17,7 +17,6 @@ int main()
     Player player(1, 1);
 
     controller.run(player);
-
     
 
     return 0;
