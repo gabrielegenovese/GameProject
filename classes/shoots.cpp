@@ -1,18 +1,7 @@
-#ifndef SHOOTS_H_INCLUDED
-#define SHOOTS_H_INCLUDED
-
+#include "shoots.hpp"
 #include <ncurses.h>
 #include "printer.hpp"
 #include "field.hpp"
-
-struct shooting
-{
-    int x, y;
-    int speed;
-    shooting *next;
-};
-
-typedef shooting *SHOOTS;
 
 SHOOTS newShoot(SHOOTS shoots, int x, int y) {
     SHOOTS tmp = new shooting;
@@ -53,16 +42,18 @@ SHOOTS removeShoots(SHOOTS shoots, Field field) {
     return shoots;
 }
 
-void printShoots(SHOOTS shoots) {
+void printShoots(SHOOTS shoots, int maxX) {
     SHOOTS tmp = shoots;
     while (tmp != NULL)
     {
         tmp->x += tmp->speed;
-        my_print(tmp->x, tmp->y, '-');
+        if(tmp->x < maxX)
+            print_string(tmp->x, tmp->y, "---");
         tmp = tmp->next;
     }
 }
 
+// per ora non viene usata
 void eCD(int& cECD, bool eCoolDown) {
     if(eCoolDown) {
         if (cECD < 0){
@@ -73,5 +64,3 @@ void eCD(int& cECD, bool eCoolDown) {
         }
     }
 }
-
-#endif

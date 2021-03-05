@@ -3,7 +3,7 @@
 
 #include "player.hpp"
 #include "printer.hpp"
-#include "shoots.cpp"
+#include "shoots.hpp"
 #include <ncurses.h>
 
 /*
