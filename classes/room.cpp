@@ -29,7 +29,6 @@ char** Room::generate_room() {
 }
 
 bool Room::is_free(int x, int y) {
-    //print_number(5, 5, *(*(content+y)+x) == ' ');
     if (*(*(content+y)+x) == ' ') {
         return true;  
     } 

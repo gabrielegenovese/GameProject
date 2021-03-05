@@ -1,5 +1,5 @@
-main: main.o controller.o player.o printer.o field.o room.o
-	g++ -o main main.o controller.o player.o printer.o field.o room.o -lcurses 
+main: main.o controller.o player.o printer.o field.o room.o shoots.o
+	g++ -o main main.o controller.o player.o printer.o field.o room.o shoots.o -lcurses 
 
 main.o: main.cpp ./classes/controller.hpp ./classes/player.hpp ./classes/printer.hpp
 	g++ -c -Wall main.cpp
@@ -19,6 +19,8 @@ player.o: ./classes/player.cpp ./classes/player.hpp
 printer.o: ./classes/printer.cpp ./classes/printer.hpp
 	g++ -c -Wall ./classes/printer.cpp
 
+shoots.o: ./classes/shoots.cpp
+	g++ -c -Wall ./classes/shoots.cpp
 
 clean:
 	rm *.o

@@ -4,7 +4,7 @@
 #include "player.hpp"
 #include "printer.hpp"
 #include "field.hpp"
-#include "shoots.cpp"
+//#include "shoots.cpp"
 
 Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth) {
     this->game_x = game_x;
@@ -28,13 +28,16 @@ void Controller::init_main_ter() {
     noecho();
 }
 
-void Controller::keyManage(int keyPressed) {
+void Controller::keyManage(int keyPressed, int x, int y) {
     switch (keyPressed)
     {
     case KEY_UP:
     case KEY_DOWN:
     case KEY_LEFT:
     case KEY_RIGHT:
+        break;
+    case 'e':
+        //this->shoots = newShoot(this->shoots, x, y);
         break;
     case KEY_F(4):
         exit = true;
@@ -78,17 +81,19 @@ void Controller::run(Player player) {
 
         coord des_loc = player.move(keyPressed);
         campo.move_player(player, des_loc->x, des_loc->y);
-        keyManage(keyPressed);
+        keyManage(keyPressed, player.getX(), player.getY());
 
         
         print_room(campo.get_screen(-1, -1, -1, -1), game_x, game_y, game_width, game_heigth);
         printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width+1, game_y+game_heigth+1);
         print_borders();
         my_print(player.getX()+game_x, player.getY()+game_y, player.getChar());
-      
+        //printShoots(this->shoots);
+
         endDraw();
 
         //game loop ending routine
+        //this->shoots = removeShoots(this->shoots, campo);
         this->time_passed += 1;
         timeout(50);                    //50 milliseconds
     }

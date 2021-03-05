@@ -3,18 +3,9 @@
 
 #include "player.hpp"
 #include "printer.hpp"
+//#include "shoots.cpp"
 #include <ncurses.h>
 
-/*
-struct shooting
-{
-    int x, y;
-    int speed;
-    shooting *next;
-};
-
-typedef shooting *SHOOTS;
-*/
 /*
 Controller class -> interfaccia fa la classe printer e le varie altre classi
 */
@@ -34,7 +25,7 @@ class Controller
 
         //main method
         void run(Player player);
-        void keyManage(int keyPressed);
+        void keyManage(int keyPressed, int x, int y);
 
         //method just to compress code
         void print_borders();
