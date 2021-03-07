@@ -4,21 +4,15 @@
 #include "player.hpp"
 #include "printer.hpp"
 #include "field.hpp"
+#include "misc.hpp"
 
-Controller::Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth) {
-    this->game_x = game_x;
-    this->game_y = game_y;
-    this->game_width = game_width;
-    this->game_heigth = game_heigth;
-    this->width = width;
-    this->heigth = heigth;
-    this->time_passed = 0;
-    this->exit = false;
-    this->eCoolDown = false;
-    this->shoots = NULL;
+Controller::Controller(boxCoordinate gameBox) {
+    this->gameBox = gameBox;
+    this->fieldManager = new Field(gameBox.width, gameBox.height);
+    setupInternalState();
 }
 
-void Controller::init_main_ter() {
+void Controller::initMainTerminal() {
     initscr();
     cbreak();
     nodelay(stdscr, TRUE);
@@ -47,71 +41,56 @@ void Controller::keyManage(int keyPressed, int x, int y) {
     }
 }
 
-//prende il nome del giocatore dal terminale
-void Controller::getName(char *name){
+
+void Controller::getPlayerName(){
     initscr();
     mvprintw(1, 1,"Nome Giocatore (max 20 char): ");
-    getstr(name);
+    getstr(this->playerName);
     endwin();
 }
+
+
+void Controller::setupInternalState() {
+    this->time_passed = 0;
+    this->exit = false;
+    this->eCoolDown = false;
+    this->shoots = NULL;
+}
+
+
+void Controller::printGameBorder() {
+    boxCoordinate gameBorder {gameBox.x-1, gameBox.y-1, gameBox.width+2, gameBox.height+2};
+    drawRect(gameBorder);  
+}
+
+
+void Controller::gameLogic(int keyPressed, Player& player) {
+    coordinate* desLocation = player.move(keyPressed);
+    (*fieldManager).move_player(player, desLocation->x, desLocation->y);
+    keyManage(keyPressed, (*fieldManager).reloc_x_player(player.getX()), player.getY());
+    this->shoots = removeShoots(this->shoots, (*fieldManager));
+    this->time_passed += 1;
+    timeout(50);            
+}
+
+
+void Controller::printEverything(Player& player) {
+    startDraw();
+    printGameBorder();
+    (*fieldManager).print_screen(player.getX(), gameBox);
+    //NON VA BENE
+    my_print((*fieldManager).reloc_x_player(player.getX())+gameBox.x, player.getY()+gameBox.y, player.getChar());
+    printShoots(this->shoots, this->gameBox.width);
+    endDraw();
+}
+
 
 void Controller::run(Player player) {
-    //init var and object
     int keyPressed;
-    char name[20];
-    Field campo(game_width, game_heigth);
-
-    //temporary var
-    const char *r_names[] = {"Geronimo", "Gianni", "Gigio", "Giornix", "Geppo"};
-    int r_points[] = {1421, 123, 23, 4, 1};
-    const char *weapon = "Glock";
-
-    //setup method
-    this->getName(name);
-    init_main_ter();
-
     while (!player.isDead() && !exit) {
-
-        //muovo il personaggio passando le coordinate a field per controllare
-        //se c'è qualcosa in mezzo e imposta le coordinate di conseguenza
         keyPressed = getch();
-
-        startDraw();
-
-        coord des_loc = player.move(keyPressed);
-        campo.move_player(player, des_loc->x, des_loc->y);
-        keyManage(keyPressed, campo.reloc_x_player(player.getX()), player.getY());
-
-        
-        campo.print_screen(player.getX(), game_x, game_y, game_width, game_heigth);
-        printUI(name, 0, time_passed/(20), 43, 100, 10, weapon, r_names, r_points, game_x+game_width+1, game_y+game_heigth+1);
-        print_borders();
-        my_print(campo.reloc_x_player(player.getX())+game_x, player.getY()+game_y, player.getChar());
-        
-        printShoots(this->shoots, this->game_width);
-
-        endDraw();
-
-        //game loop ending routine
-        this->shoots = removeShoots(this->shoots, campo);
-        this->time_passed += 1;
-        timeout(50);            //50 milliseconds
+        gameLogic(keyPressed, player);
+        printEverything(player);
     }
-
     endwin();
-}
-
-int Controller::getMaxY() {
-    return this->heigth;
-}
-
-int Controller::getMaxX() {
-    return this->width;
-}
-
-void Controller::print_borders() {
-    //stampa il riquadro gui
-    drawRect(0, 0, this->width, this->heigth);  
-    //stampa il riquadro campo                
-    drawRect(this->game_x-1, this->game_y-1, this->game_width+2, this->game_heigth+2);  
 }

@@ -1,13 +1,7 @@
+#include "misc.hpp"
+
 #ifndef PLAYER_H_INCLUDED
 #define PLAYER_H_INCLUDED
-
-struct Coordinate
-{
-    int x;
-    int y;
-};
-
-typedef Coordinate *coord;
 
 class Player
 {
@@ -21,7 +15,7 @@ class Player
         bool isDead();
         void addHealth(int n);
         void subHealth(int n);
-        coord move(int keyPressed);
+        coordinate* move(int keyPressed);
         void setX(int x);
         void setY(int y);
         int getX();

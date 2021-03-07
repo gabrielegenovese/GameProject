@@ -1,6 +1,7 @@
 #include "field.hpp"
 #include "room.hpp"
 #include "printer.hpp"
+#include "misc.hpp"
 #include <ncurses.h>
 #include <iostream>
 
@@ -33,8 +34,12 @@ void Field::add_room() {
     p->next = tmp;
 };
 
-void Field::print_screen(int x_player, int x, int y, int width, int height) {
-    int diff = x_player - this->width/2;
+void Field::print_screen(int x_player, boxCoordinate gameBox) {
+    int x = gameBox.x;
+    int y = gameBox.y;
+    int width = gameBox.width;
+    int height = gameBox.height;
+    int diff = x_player - this->width/4;
     char ** res;
 
     if (this->current_level == this->first_level && diff <= 0) {
@@ -109,8 +114,8 @@ bool Field::check_movement(int start_x, int start_y, int& dest_x, int& dest_y) {
 };
 
 int Field::reloc_x_player(int x_p) {
-    if (this->current_level == this->first_level && x_p - width/2 <= 0) return x_p;
+    if (this->current_level == this->first_level && x_p - width/4 <= 0) return x_p;
     else {
-        return width/2;
+        return width/4;
     }
 }

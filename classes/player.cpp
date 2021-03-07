@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include "player.hpp"
+#include "misc.hpp"
 
 Player::Player(int startingX, int startingY) {
     //starting point
@@ -11,8 +12,8 @@ Player::Player(int startingX, int startingY) {
 }
 
 
-coord Player::move(int keyPressed) {
-    coord tmp = new Coordinate;
+coordinate* Player::move(int keyPressed) {
+    coordinate* tmp = new coordinate;
     switch (keyPressed)
     {
     case KEY_UP:
