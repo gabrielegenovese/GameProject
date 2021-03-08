@@ -6,48 +6,48 @@ Player::Player(int startingX, int startingY) {
     //starting point
     this->x = startingX;
     this->y = startingY;
+    this->isJumping = false;
+    this->n_jump = 5;
     //character sprite
     this->character = '@';
     this->life = 100;
 }
 
 
-coordinate* Player::move(int keyPressed) {
+coordinate* Player::move(int keyPressed, bool isThereFloor) {
     coordinate* tmp = new coordinate;
     switch (keyPressed)
     {
     case KEY_UP:
-        tmp->x = this->x;
-        tmp->y = this->y-1;
+        if(!isJumping && isThereFloor) {
+            isJumping = true;
+        }
         break;
-    
     case KEY_DOWN:
         tmp->x = this->x;
         tmp->y = this->y+1;
         break;
-
     case KEY_RIGHT:
         tmp->y = this->y;
-        tmp->x = this->x+1;
+        tmp->x = this->x+2;
         break;
-    
     case KEY_LEFT:
         tmp->y = this->y;
-        tmp->x = this->x-1;
+        tmp->x = this->x-2;
         break;
-
     default:
-        tmp->y = this->y;
-        tmp->x = this->x;
-        break;
-    }
-    // da mettere apposto
-    /*case 'e':
-        if(!this->eCoolDown) {
-            this->shoots = newShoot(x, y);
-            this->eCoolDown = true;
+        if(!isJumping)
+            tmp->y = this->y+1;
+        else {
+            tmp->y = this->y-1;
+            n_jump--;
+            if(n_jump == 0) {
+                isJumping = false;
+                n_jump = 5;
+            }
         }
-        break;*/
+        tmp->x = this->x;
+    }
     return tmp;
 }
 

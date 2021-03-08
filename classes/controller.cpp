@@ -65,7 +65,7 @@ void Controller::printGameBorder() {
 
 
 void Controller::gameLogic(int keyPressed, Player& player) {
-    coordinate* desLocation = player.move(keyPressed);
+    coordinate* desLocation = player.move(keyPressed, true);
     (*fieldManager).move_player(player, desLocation->x, desLocation->y);
     keyManage(keyPressed, (*fieldManager).reloc_x_player(player.getX())+1, player.getY()+1);
     this->shoots = removeShoots(this->shoots, (*fieldManager));

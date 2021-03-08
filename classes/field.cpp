@@ -111,7 +111,7 @@ bool Field::check_movement(int start_x, int start_y, int& dest_x, int& dest_y) {
         return false;
     }
     
-};
+}
 
 int Field::reloc_x_player(int x_p) {
     if (this->current_level == this->first_level && x_p - width/4 <= 0) return x_p;

@@ -9,13 +9,15 @@ class Player
         int x, y;
         int life;
         char character;
+        bool isJumping;
+        int n_jump;
         
     public:
         Player(int startingX, int startingY);
         bool isDead();
         void addHealth(int n);
         void subHealth(int n);
-        coordinate* move(int keyPressed);
+        coordinate* move(int keyPressed, bool isThereFloor);
         void setX(int x);
         void setY(int y);
         int getX();
