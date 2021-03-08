@@ -119,3 +119,9 @@ int Field::reloc_x_player(int x_p) {
         return width/4;
     }
 }
+
+bool Field::isThereFloor(int y) {
+    if (y == height-1)
+        return true;
+    return (*(current_level->value)).is_floor(y-1);
+}
