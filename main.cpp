@@ -11,6 +11,7 @@ int main()
     controller.getPlayerName();
     controller.initMainTerminal();
     controller.run(player);
+    
 
     return 0;
 }

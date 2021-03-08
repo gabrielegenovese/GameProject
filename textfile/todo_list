@@ -14,11 +14,14 @@ Field:
         1. Metodo per generare stanze "giocabili"
         3. Posizionare i nemici
 
-Enemy (SIMO)
-    Creare i vari nemici, dove la loro potenza aumenta al progredire del gioco
-    (by geno - io farei una classe generale per tutti i mostri e poi sottoclassi
-    per fare vari mostri diversi, boss... e la potenza potrebbe essere una variabile
-    che va a moltiplicare i valori forza e vita)
+Enemy 
+aggiungere il gestore della lista di nemici (controller?)
+avere max 20 nemici diversi (in realtà si fa anche con 5)
+usare moltiplicatori per l'estensione infinita della stanza
+es. numero di stanza /10 + 1 (aumenta ongi 5 stanze)
+da gestire il movimento e lo sparo di alcuni nemici(tipo boss o mini boss)
+removeEnemy rimuove nemici dalla lista "alive" che quindi vengono cancellati alla successiva ristampa dello schermo
+
 
 Player
     1.  Sparo implementato, ma sarebbe da mettere in un file diverso tipo shoots.cpp
