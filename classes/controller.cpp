@@ -30,7 +30,7 @@ void Controller::keyManage(int keyPressed, int x, int y) {
     case KEY_RIGHT:
         break;
     case 'e':
-        this->shoots = newShoot(this->shoots, x+3, y+3);
+        this->shoots = newShoot(this->shoots, x, y);
         break;
     case KEY_F(4):
         exit = true;
@@ -67,7 +67,7 @@ void Controller::printGameBorder() {
 void Controller::gameLogic(int keyPressed, Player& player) {
     coordinate* desLocation = player.move(keyPressed);
     (*fieldManager).move_player(player, desLocation->x, desLocation->y);
-    keyManage(keyPressed, (*fieldManager).reloc_x_player(player.getX()), player.getY());
+    keyManage(keyPressed, (*fieldManager).reloc_x_player(player.getX())+1, player.getY()+1);
     this->shoots = removeShoots(this->shoots, (*fieldManager));
     this->time_passed += 1;
     timeout(50);            
