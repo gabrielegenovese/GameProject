@@ -6,11 +6,11 @@ Room::Room(int width, int height, int level) {
     this->height = height;
     this->level = level;
     this->content = generate_room();
-};
+}
 
 char** Room::get_content() {
     return content;
-};
+}
 
 char** Room::generate_room() {
     char** start = new char * [height];
