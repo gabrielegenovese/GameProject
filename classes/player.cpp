@@ -47,6 +47,7 @@ coordinate* Player::move(int keyPressed, bool isThereFloor) {
             if(n_jump == 0) {
                 isJumping = false;
                 n_jump = 5;
+                precKey = 0;
             }
             n_jump--;
             //movimento mentre sale

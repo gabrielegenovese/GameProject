@@ -79,7 +79,16 @@ void Field::move_player(Player& player, int dest_x, int dest_y) {
         player.setX(dest_x);
         player.setY(dest_y);
     } else {
-        //bho
+        /*int temp_x = dest_x+1, temp_y = dest_y+1;
+        if(check_movement(player.getX(), player.getY(), dest_x, temp_y)) {
+            player.setX(temp_x);
+            player.setY(dest_y);
+        } else if (check_movement(player.getX(), player.getY(), temp_x, dest_y)) {
+            player.setX(dest_x);
+            player.setY(temp_y);
+        }*/
+        // dovremo rimettere il giocatore al a destra/sinistra o sopra/sotto al muro
+        // perché sennò si ferma a mezz'aria
     }
 };
 
