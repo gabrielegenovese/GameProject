@@ -8,6 +8,7 @@ Player::Player(int startingX, int startingY) {
     this->y = startingY;
     this->isJumping = false;
     this->n_jump = 5;
+    this->precKey = 0;
     //character sprite
     this->character = '@';
     this->life = 100;
@@ -26,27 +27,46 @@ coordinate* Player::move(int keyPressed, bool isThereFloor) {
     case KEY_DOWN:
         tmp->x = this->x;
         tmp->y = this->y+1;
+        // annullo il jump
+        isJumping = false;
+        n_jump = 5;
         break;
     case KEY_RIGHT:
         tmp->y = this->y;
         tmp->x = this->x+2;
+        this->precKey = KEY_RIGHT;
         break;
     case KEY_LEFT:
         tmp->y = this->y;
         tmp->x = this->x-2;
+        this->precKey = KEY_LEFT;
         break;
     default:
-        if(!isJumping)
-            tmp->y = this->y+1;
-        else {
+        if(isJumping) {
             tmp->y = this->y-1;
-            n_jump--;
             if(n_jump == 0) {
                 isJumping = false;
                 n_jump = 5;
             }
+            n_jump--;
+            //movimento mentre sale
+            if(precKey == KEY_LEFT)
+                tmp->x = this->x-1;
+            if(precKey == KEY_RIGHT)
+                tmp->x = this->x+1;
+            if(precKey == 0)
+                tmp->x = this->x;
         }
-        tmp->x = this->x;
+    }
+    //gravity e movimento mentre cade
+    if(!isThereFloor && !isJumping) {
+        tmp->y = this->y+1;
+        if(precKey == KEY_LEFT)
+            tmp->x = this->x-1;
+        if(precKey == KEY_RIGHT)
+            tmp->x = this->x+1;
+        if(precKey == 0)
+            tmp->x = this->x;
     }
     return tmp;
 }

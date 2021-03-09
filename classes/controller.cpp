@@ -35,7 +35,6 @@ void Controller::keyManage(int keyPressed, int x, int y) {
     case KEY_F(4):
         exit = true;
         break;
-    
     default:
         break;
     }

@@ -11,6 +11,7 @@ class Player
         char character;
         bool isJumping;
         int n_jump;
+        int precKey;
         
     public:
         Player(int startingX, int startingY);
