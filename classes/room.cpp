@@ -39,7 +39,7 @@ bool Room::is_free(int x, int y) {
 
 bool Room::is_floor(int y) {
     if (*(*(content+y)) == '=')
-        return true;  
+        return true;
     else
-        return false; 
+        return false;
 }

@@ -79,16 +79,9 @@ void Field::move_player(Player& player, int dest_x, int dest_y) {
         player.setX(dest_x);
         player.setY(dest_y);
     } else {
-        /*int temp_x = dest_x+1, temp_y = dest_y+1;
-        if(check_movement(player.getX(), player.getY(), dest_x, temp_y)) {
-            player.setX(temp_x);
-            player.setY(dest_y);
-        } else if (check_movement(player.getX(), player.getY(), temp_x, dest_y)) {
-            player.setX(dest_x);
-            player.setY(temp_y);
-        }*/
         // dovremo rimettere il giocatore al a destra/sinistra o sopra/sotto al muro
-        // perché sennò si ferma a mezz'aria
+        // perché sennò si ferma a mezz'aria come spiderman
+        // per fabio: dovrebbe essere gestito da field o da pleyer sta cosa?
     }
 };
 
@@ -123,10 +116,10 @@ bool Field::check_movement(int start_x, int start_y, int& dest_x, int& dest_y) {
 }
 
 int Field::reloc_x_player(int x_p) {
-    if (this->current_level == this->first_level && x_p - width/4 <= 0) return x_p;
-    else {
+    if (this->current_level == this->first_level && x_p - width/4 <= 0)
+        return x_p;
+    else
         return width/4;
-    }
 }
 
 bool Field::isThereFloor(int y) {

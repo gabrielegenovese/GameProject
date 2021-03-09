@@ -47,7 +47,7 @@ coordinate* Player::move(int keyPressed, bool isThereFloor) {
             if(n_jump == 0) {
                 isJumping = false;
                 n_jump = 5;
-                precKey = 0;
+                //precKey = 0; serve per evitare che non faccia come spiderman ma vorrei trovare un'altra soluzione
             }
             n_jump--;
             //movimento mentre sale
