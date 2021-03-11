@@ -21,6 +21,7 @@ class Player
         coordinate* move(int keyPressed, bool isThereFloor);
         void setX(int x);
         void setY(int y);
+        void setPrecKey(int setPrecKey);
         int getX();
         int getY();
         char getChar();

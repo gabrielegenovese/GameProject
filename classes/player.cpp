@@ -93,6 +93,10 @@ void Player::setY(int y) {
     this->y = y;
 }
 
+void Player::setPrecKey(int precKey) {
+    this->precKey = precKey;
+}
+
 int Player::getX() {
     return x;
 }
