@@ -15,7 +15,7 @@ class Controller
     private:
         boxCoordinate gameBox;
 
-        char *playerName;
+        char playerName[20];
         Field* fieldManager;
         int time_passed;
         bool exit, eCoolDown;
