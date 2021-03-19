@@ -11,7 +11,7 @@ class Player
         char character;
         
     public:
-        Player(int startingX, int startingY);
+        Player(coordinate playerCoo);
         bool isDead();
         void addHealth(int n);
         void subHealth(int n);

@@ -119,3 +119,12 @@ int Field::reloc_x_player(int x_p) {
         return width/4;
     }
 }
+
+
+
+
+
+
+char canEntityMove(coordinate start, coordinate destination) {
+    return 'c';
+}

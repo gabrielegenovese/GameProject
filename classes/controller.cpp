@@ -9,6 +9,8 @@
 Controller::Controller(boxCoordinate gameBox) {
     this->gameBox = gameBox;
     this->fieldManager = new Field(gameBox.width, gameBox.height);
+    coordinate playerCoord {1,1};
+    this->player = new Player(playerCoord);
     setupInternalState();
 }
 
@@ -64,33 +66,64 @@ void Controller::printGameBorder() {
 }
 
 
-void Controller::gameLogic(int keyPressed, Player& player) {
-    coordinate* desLocation = player.move(keyPressed);
-    (*fieldManager).move_player(player, desLocation->x, desLocation->y);
-    keyManage(keyPressed, (*fieldManager).reloc_x_player(player.getX()), player.getY());
+void Controller::movePlayer(int keyPressed) {
+    coordinate* destination = (*player).move(keyPressed);
+    (*fieldManager).move_player((*player), destination->x, destination->y);
+    /*
+    char code = (*fieldManager).canEntityMove((*player).getLocation(), destination)
+    if (strcmp(code, "c") == 0) {
+        player.setCoordinate(destination);
+    }
+    else if (strcmp(code, "r")== 0) {
+        player.stopJump();
+    }
+    else if (strcmp(code, "w") == 0) {
+        
+    } 
+    else if (strcmp(code, "b") == 0) {
+
+    }
+    else if (strcmp(code, "e") == 0) {
+        
+    }
+    */
+    keyManage(keyPressed, (*fieldManager).reloc_x_player((*player).getX()), (*player).getY());
+}
+
+
+void Controller::gameLogic(int keyPressed) {
+    
+    movePlayer(keyPressed);
+    /*
+    moveEnemies()
+    spawnBullets()
+    moveBullets()
+    */
+
+    //ending routine that need to go into a single method
     this->shoots = removeShoots(this->shoots, (*fieldManager));
     this->time_passed += 1;
     timeout(50);            
 }
 
 
-void Controller::printEverything(Player& player) {
+void Controller::printEverything() {
     startDraw();
     printGameBorder();
-    (*fieldManager).print_screen(player.getX(), gameBox);
+    (*fieldManager).print_screen((*player).getX(), gameBox);
     //NON VA BENE
-    my_print((*fieldManager).reloc_x_player(player.getX())+gameBox.x, player.getY()+gameBox.y, player.getChar());
+    my_print((*fieldManager).reloc_x_player((*player).getX())+gameBox.x, (*player).getY()+gameBox.y, (*player).getChar());
     printShoots(this->shoots, this->gameBox.width);
     endDraw();
 }
 
 
-void Controller::run(Player player) {
+void Controller::run() {
     int keyPressed;
-    while (!player.isDead() && !exit) {
+    while (!(*player).isDead() && !exit) {
         keyPressed = getch();
-        gameLogic(keyPressed, player);
-        printEverything(player);
+        gameLogic(keyPressed);
+        printEverything();
     }
     endwin();
 }

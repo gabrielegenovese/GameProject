@@ -2,10 +2,10 @@
 #include "player.hpp"
 #include "misc.hpp"
 
-Player::Player(int startingX, int startingY) {
+Player::Player(coordinate playerCoord) {
     //starting point
-    this->x = startingX;
-    this->y = startingY;
+    this->x = playerCoord.x;
+    this->y = playerCoord.y;
     //character sprite
     this->character = '@';
     this->life = 100;

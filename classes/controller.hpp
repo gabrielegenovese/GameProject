@@ -17,20 +17,23 @@ class Controller
 
         char *playerName;
         Field* fieldManager;
+        Player* player;
+
         int time_passed;
         bool exit, eCoolDown;
         SHOOTS shoots;
         
         void setupInternalState();
-        void gameLogic(int keyPressed, Player& player);
-        void printEverything(Player& player);
+        void gameLogic(int keyPressed);
+        void printEverything();
         void printGameBorder();
+        void movePlayer(int keyPressed);
 
     public:
         Controller(boxCoordinate gameBox);
         void getPlayerName();
         void initMainTerminal();  
-        void run(Player player);
+        void run();
         void keyManage(int keyPressed, int x, int y);
 };
 
