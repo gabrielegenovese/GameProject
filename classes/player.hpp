@@ -1,13 +1,14 @@
 #include "misc.hpp"
+#include "entity.hpp"
 
 #ifndef PLAYER_H_INCLUDED
 #define PLAYER_H_INCLUDED
 
-class Player
+class Player:public Entity
 {
     private:
-        int x, y;
-        int life;
+        //int x, y;
+        //int life;
         char character;
         bool isJumping;
         int n_jump;
@@ -16,8 +17,6 @@ class Player
     public:
         Player(int startingX, int startingY);
         bool isDead();
-        void addHealth(int n);
-        void subHealth(int n);
         coordinate* move(int keyPressed, bool isThereFloor);
         void setX(int x);
         void setY(int y);
