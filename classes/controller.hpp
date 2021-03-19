@@ -15,7 +15,7 @@ class Controller
     private:
         boxCoordinate gameBox;
 
-        char *playerName;
+        char playerName [20];
         Field* fieldManager;
         Player* player;
 
