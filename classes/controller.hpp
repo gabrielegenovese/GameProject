@@ -3,16 +3,9 @@
 
 #include "player.hpp"
 #include "printer.hpp"
+#include "shoots.hpp"
 #include <ncurses.h>
-
-struct shooting
-{
-    int x, y;
-    int speed;
-    shooting *next;
-};
-
-typedef shooting *SHOOTS;
+#include "misc.hpp"
 
 /*
 Controller class -> interfaccia fa la classe printer e le varie altre classi
@@ -20,36 +13,25 @@ Controller class -> interfaccia fa la classe printer e le varie altre classi
 class Controller
 {
     private:
-        int width, heigth, game_x, game_y, game_width, game_heigth;
+        boxCoordinate gameBox;
+
+        char playerName[20];
+        Field* fieldManager;
         int time_passed;
-        bool exit;
-        bool eCoolDown;
+        bool exit, eCoolDown;
         SHOOTS shoots;
+        
+        void setupInternalState();
+        void gameLogic(int keyPressed, Player& player);
+        void printEverything(Player& player);
+        void printGameBorder();
 
     public:
-        Controller(int game_x, int game_y, int game_width, int game_heigth, int width, int heigth);
-
-        //ncurses methods
-        void init_main_ter();  
-        void getName(char *name);
-
-        //player methods
-        bool isEmpty(int x, int y);
-        void move_player(Player& player, int keyPressed);
-
-        //testing per lo shooting ed è da spostare e controllare
-        void eCD(int& cECD);
-        SHOOTS newShoot(int x, int y);
-        void printShoots();
-        SHOOTS removeShoots();
-
-        //main method
-        void run(Player player, Printer printer);
-
-        //get method
-        int getMaxX();
-        int getMaxY();
-        
+        Controller(boxCoordinate gameBox);
+        void getPlayerName();
+        void initMainTerminal();  
+        void run(Player player);
+        void keyManage(int keyPressed, int x, int y);
 };
 
 #endif
